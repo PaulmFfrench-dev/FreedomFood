@@ -1,11 +1,11 @@
 package org.wit.freedomfood.console.main
 
 import mu.KotlinLogging
+import org.wit.freedomfood.console.models.FreedomFoodModel
 
 private val logger = KotlinLogging.logger {}
 
-var restaurantname = ""
-var restaurantdescription = ""
+var freedomfood = FreedomFoodModel()
 
 fun main(args: Array<String>){
     logger.info { "Launching FreedomFood Console App" }
@@ -51,21 +51,22 @@ fun menu() : Int {
 fun addRestaurant(){
     println("Add a Restaurant")
     print("\nEnter a Restaurants name : ")
-    restaurantname = readLine()!!
+    freedomfood.restaurantname = readLine()!!
     print("Enter a description for the Restaurants : ")
-    restaurantdescription = readLine()!!
+    freedomfood.restaurantdescription = readLine()!!
 
-    println("You entered $restaurantname for the name and $restaurantdescription for the Restaurants description")
+    println("You entered " + freedomfood.restaurantname + " for the name and " + freedomfood.restaurantdescription + " for the Restaurants description")
 }
 
 fun updateRestaurant() {
     println("Update Restaurant")
 
-    print("\nEnter a new Name for [ $restaurantname ] : ")
-    restaurantname = readLine()!!
-    print("Enter a new Description for [ $restaurantdescription ] : ")
-    restaurantdescription = readLine()!!
-    println("You updated [ $restaurantname ] for title and [ $restaurantdescription ] for description")
+    print("\nEnter a new Name for [ " + freedomfood.restaurantname + " ] : ")
+    freedomfood. restaurantname = readLine()!!
+    print("Enter a new Description for [ " + freedomfood.restaurantdescription + " ] : ")
+    freedomfood.restaurantdescription = readLine()!!
+    println("You updated [ " + freedomfood.restaurantname + " ] for title" +
+            "and [ " + freedomfood.restaurantdescription + " ] for description")
 }
 
 fun listRestaurants() {
