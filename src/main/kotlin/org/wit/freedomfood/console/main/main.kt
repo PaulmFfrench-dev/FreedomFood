@@ -1,4 +1,4 @@
-package org.wit.freedomfood
+package org.wit.freedomfood.console.main
 
 import mu.KotlinLogging
 
