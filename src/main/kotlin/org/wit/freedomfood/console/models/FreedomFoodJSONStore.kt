@@ -52,6 +52,11 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         serialize()
     }
 
+    override fun delete(freedomfood: FreedomFoodModel) {
+        freedomfoods.remove(freedomfood)
+        serialize()
+    }
+
     internal fun logAll() {
         freedomfoods.forEach { logger.info("${it}") }
     }

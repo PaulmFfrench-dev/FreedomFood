@@ -15,6 +15,7 @@ class FreedomFoodView {
         println(" 2. Update a Restaurant")
         println(" 3. List All Restaurants")
         println(" 4. Search Restaurants")
+        println(" 5. Delete Restaurants")
         println("-1. Exit")
         println()
         print("Enter Option : ")
@@ -74,7 +75,7 @@ class FreedomFoodView {
     fun getId() : Long {
         var strId : String? // String to hold user input
         var searchId : Long // Long to hold converted id
-        print("Enter id to Search/Update : ")
+        print("Enter id to Search/Update/Delete : ")
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
             strId.toLong()

@@ -13,7 +13,7 @@ class FreedomFoodController {
 
     init {
         logger.info { "Launching FreedomFood Console App" }
-        println("FreedomFood Kotlin App Version 3.0")
+        println("FreedomFood Kotlin App Version 4.0")
     }
 
     fun start() {
@@ -26,6 +26,7 @@ class FreedomFoodController {
                 2 -> update()
                 3 -> list()
                 4 -> search()
+                5 -> delete()
                 -99 -> dummyData()
                 -1 -> println("Exiting App")
                 else -> println("Invalid Option")
@@ -78,6 +79,20 @@ class FreedomFoodController {
     fun search(id: Long) : FreedomFoodModel? {
         var foundRestaurant = freedomfoods.findOne(id)
         return foundRestaurant
+    }
+
+    fun delete() {
+        freedomfoodView.listRestaurants(freedomfoods)
+        var searchId = freedomfoodView.getId()
+        val afreedomfood = search(searchId)
+
+        if(afreedomfood != null) {
+            freedomfoods.delete(afreedomfood)
+            println("Restaurant Deleted...")
+            freedomfoodView.listRestaurants(freedomfoods)
+        }
+        else
+            println("Restaurant Not Deleted...")
     }
 
     fun dummyData() {

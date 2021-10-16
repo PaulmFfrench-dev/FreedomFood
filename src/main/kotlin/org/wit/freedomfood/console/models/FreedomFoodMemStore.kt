@@ -36,6 +36,10 @@ class FreedomFoodMemStore : FreedomFoodStore {
         }
     }
 
+    override fun delete(freedomfood: FreedomFoodModel) {
+        freedomfoods.remove(freedomfood)
+    }
+
     internal fun logAll() {
         freedomfoods.forEach { logger.info("${it}") }
     }
