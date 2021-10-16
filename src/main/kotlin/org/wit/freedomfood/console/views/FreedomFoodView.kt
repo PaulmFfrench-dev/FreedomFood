@@ -1,6 +1,6 @@
 package org.wit.freedomfood.console.views
 
-import org.wit.freedomfood.console.models.FreedomFoodMemStore
+import org.wit.freedomfood.console.models.FreedomFoodJSONStore
 import org.wit.freedomfood.console.models.FreedomFoodModel
 
 class FreedomFoodView {
@@ -26,7 +26,7 @@ class FreedomFoodView {
         return option
     }
 
-    fun listRestaurants(freedomfoods : FreedomFoodMemStore) {
+    fun listRestaurants(freedomfoods : FreedomFoodJSONStore) {
         println("List All Restaurants")
         println()
         freedomfoods.logAll()

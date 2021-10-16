@@ -1,13 +1,13 @@
 package org.wit.freedomfood.console.controllers
 
 import mu.KotlinLogging
-import org.wit.freedomfood.console.models.FreedomFoodMemStore
+import org.wit.freedomfood.console.models.FreedomFoodJSONStore
 import org.wit.freedomfood.console.models.FreedomFoodModel
 import org.wit.freedomfood.console.views.FreedomFoodView
 
-class PlacemarkController {
+class FreedomFoodController {
 
-    val freedomfoods = FreedomFoodMemStore()
+    val freedomfoods = FreedomFoodJSONStore()
     val freedomfoodView = FreedomFoodView()
     val logger = KotlinLogging.logger {}
 
