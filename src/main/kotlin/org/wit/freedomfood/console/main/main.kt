@@ -6,10 +6,11 @@ import org.wit.freedomfood.console.models.FreedomFoodModel
 private val logger = KotlinLogging.logger {}
 
 var freedomfood = FreedomFoodModel()
+val freedomfoods = ArrayList<FreedomFoodModel>()
 
 fun main(args: Array<String>){
     logger.info { "Launching FreedomFood Console App" }
-    println("FreedomFood Kotlin App Version 1.0")
+    println("FreedomFood Kotlin App Version 2.0")
 
     var input: Int
 
@@ -38,7 +39,7 @@ fun menu() : Int {
     println(" 3. List All Restaurants")
     println("-1. Exit")
     println()
-    print("Enter an integer : ")
+    print("Enter Option : ")
     input = readLine()!!
     option = if (input.toIntOrNull() != null && !input.isEmpty())
         input.toInt()
@@ -50,25 +51,33 @@ fun menu() : Int {
 
 fun addRestaurant(){
     println("Add a Restaurant")
-    print("\nEnter a Restaurants name : ")
+    println()
+    print("Enter a Restaurants name : ")
     freedomfood.restaurantname = readLine()!!
     print("Enter a description for the Restaurants : ")
     freedomfood.restaurantdescription = readLine()!!
 
-    println("You entered " + freedomfood.restaurantname + " for the name and " + freedomfood.restaurantdescription + " for the Restaurants description")
+    if (freedomfood.restaurantname.isNotEmpty() && freedomfood.restaurantdescription.isNotEmpty()) {
+        freedomfoods.add(freedomfood.copy())
+        logger.info("Restaurant Added : [ $freedomfood ]")
+    }
+    else
+        logger.info("Restaurant Not Added")
 }
 
 fun updateRestaurant() {
     println("Update Restaurant")
-
-    print("\nEnter a new Name for [ " + freedomfood.restaurantname + " ] : ")
+    println()
+    print("Enter a new Name for [ " + freedomfood.restaurantname + " ] : ")
     freedomfood. restaurantname = readLine()!!
     print("Enter a new Description for [ " + freedomfood.restaurantdescription + " ] : ")
     freedomfood.restaurantdescription = readLine()!!
-    println("You updated [ " + freedomfood.restaurantname + " ] for title" +
-            "and [ " + freedomfood.restaurantdescription + " ] for description")
+    println("You updated [ " + freedomfood.restaurantname + " ] for the name " +
+            "and [ " + freedomfood.restaurantdescription + " ] for the description")
 }
 
 fun listRestaurants() {
-    println("You Chose List All Restaurants")
+    println("List All Restaurants")
+    println()
+    freedomfoods.forEach { logger.info("${it}") }
 }
