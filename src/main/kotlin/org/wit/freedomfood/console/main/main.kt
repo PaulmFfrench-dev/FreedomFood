@@ -20,6 +20,7 @@ fun main(args: Array<String>){
             1 -> addRestaurant()
             2 -> updateRestaurant()
             3 -> listRestaurants()
+            4 -> searchRestaurants()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -37,6 +38,7 @@ fun menu() : Int {
     println(" 1. Add a Restaurant")
     println(" 2. Update a Restaurant")
     println(" 3. List All Restaurants")
+    println(" 4. Search Restaurants")
     println("-1. Exit")
     println()
     print("Enter Option : ")
@@ -50,16 +52,18 @@ fun menu() : Int {
 
 
 fun addRestaurant(){
+    var afreedomfood = FreedomFoodModel()
     println("Add a Restaurant")
     println()
     print("Enter a Restaurants name : ")
-    freedomfood.restaurantname = readLine()!!
+    afreedomfood.restaurantname = readLine()!!
     print("Enter a description for the Restaurants : ")
-    freedomfood.restaurantdescription = readLine()!!
+    afreedomfood.restaurantdescription = readLine()!!
 
-    if (freedomfood.restaurantname.isNotEmpty() && freedomfood.restaurantdescription.isNotEmpty()) {
-        freedomfoods.add(freedomfood.copy())
-        logger.info("Restaurant Added : [ $freedomfood ]")
+    if (afreedomfood.restaurantname.isNotEmpty() && afreedomfood.restaurantdescription.isNotEmpty()) {
+        afreedomfood.id = freedomfoods.size.toLong()
+        freedomfoods.add(afreedomfood.copy())
+        logger.info("Restaurant Added : [ $afreedomfood ]")
     }
     else
         logger.info("Restaurant Not Added")
@@ -68,16 +72,60 @@ fun addRestaurant(){
 fun updateRestaurant() {
     println("Update Restaurant")
     println()
-    print("Enter a new Name for [ " + freedomfood.restaurantname + " ] : ")
-    freedomfood. restaurantname = readLine()!!
-    print("Enter a new Description for [ " + freedomfood.restaurantdescription + " ] : ")
-    freedomfood.restaurantdescription = readLine()!!
-    println("You updated [ " + freedomfood.restaurantname + " ] for the name " +
-            "and [ " + freedomfood.restaurantdescription + " ] for the description")
+    listRestaurants()
+    var searchId = getId()
+    val afreedomfood = search(searchId)
+
+    if(afreedomfood !=null) {
+        print("Enter a new Name for [ " + afreedomfood.restaurantname + " ] : ")
+        afreedomfood.restaurantname = readLine()!!
+        print("Enter a new Description for [ " + afreedomfood.restaurantdescription + " ] : ")
+        afreedomfood.restaurantdescription = readLine()!!
+        println(
+            "You updated [ " + afreedomfood.restaurantname + " ] for the name " +
+                    "and [ " + afreedomfood.restaurantdescription + " ] for the description"
+        )
+    }
+    else
+        println("Restaruant Not Updated...")
 }
 
 fun listRestaurants() {
     println("List All Restaurants")
     println()
     freedomfoods.forEach { logger.info("${it}") }
+    println()
+}
+
+fun searchRestaurants() {
+    var searchId = getId()
+    val afreedomfood = search(searchId)
+
+    if(afreedomfood != null)
+        println("Restaurant Details [ $afreedomfood ]")
+    else
+        println("Restaurant Not Found...")
+}
+
+fun getId() : Long {
+    var strId : String? // String to hold user input
+    var searchId : Long // Long to hold converted id
+    print("Enter id to Search/Update : ")
+    strId = readLine()!!
+    searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
+        strId.toLong()
+    else
+        -9
+    return searchId
+}
+
+fun search(id: Long) : FreedomFoodModel? {
+    var foundFreedomFood: FreedomFoodModel? = freedomfoods.find { p -> p.id == id }
+    return foundFreedomFood
+}
+
+fun dummyData() {
+    freedomfoods.add(FreedomFoodModel(1, "The Swan", "Chinese Food"))
+    freedomfoods.add(FreedomFoodModel(2, "The Penguin", "Chipper Food"))
+    freedomfoods.add(FreedomFoodModel(3, "Ephesus", "Chipper Food"))
 }
