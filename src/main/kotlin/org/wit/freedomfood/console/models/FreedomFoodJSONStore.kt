@@ -10,9 +10,9 @@ import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
-val JSON_FILE = "placemarks.json"
+const val JSON_FILE = "freedomfoods.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<java.util.ArrayList<FreedomFoodModel>>() {}.type
+val listType = object : TypeToken<ArrayList<FreedomFoodModel>>() {}.type
 
 fun generateRandomId(): Long {
     return Random().nextLong()
@@ -20,7 +20,7 @@ fun generateRandomId(): Long {
 
 class FreedomFoodJSONStore : FreedomFoodStore {
 
-    var freedomfoods = mutableListOf<FreedomFoodModel>()
+    private var freedomfoods = mutableListOf<FreedomFoodModel>()
 
     init {
         if (exists(JSON_FILE)) {
@@ -32,9 +32,8 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         return freedomfoods
     }
 
-    override fun findOne(id: Long) : FreedomFoodModel? {
-        var foundRestaurant: FreedomFoodModel? = freedomfoods.find { p -> p.id == id }
-        return foundRestaurant
+    override fun findOne(id: Long): FreedomFoodModel? {
+        return freedomfoods.find { p -> p.id == id }
     }
 
     override fun create(freedomfood: FreedomFoodModel) {
@@ -44,7 +43,7 @@ class FreedomFoodJSONStore : FreedomFoodStore {
     }
 
     override fun update(freedomfood: FreedomFoodModel) {
-        var foundRestaurant = findOne(freedomfood.id!!)
+        val foundRestaurant = findOne(freedomfood.id)
         if (foundRestaurant != null) {
             foundRestaurant.restaurantname = foundRestaurant.restaurantname
             foundRestaurant.restaurantdescription = foundRestaurant.restaurantdescription
@@ -58,7 +57,7 @@ class FreedomFoodJSONStore : FreedomFoodStore {
     }
 
     internal fun logAll() {
-        freedomfoods.forEach { logger.info("${it}") }
+        freedomfoods.forEach { logger.info("$it") }
     }
 
     private fun serialize() {

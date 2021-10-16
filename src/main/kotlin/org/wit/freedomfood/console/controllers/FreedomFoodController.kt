@@ -7,9 +7,9 @@ import org.wit.freedomfood.console.views.FreedomFoodView
 
 class FreedomFoodController {
 
-    val freedomfoods = FreedomFoodJSONStore()
-    val freedomfoodView = FreedomFoodView()
-    val logger = KotlinLogging.logger {}
+    private val freedomfoods = FreedomFoodJSONStore()
+    private val freedomfoodView = FreedomFoodView()
+    private val logger = KotlinLogging.logger {}
 
     init {
         logger.info { "Launching FreedomFood Console App" }
@@ -36,10 +36,10 @@ class FreedomFoodController {
         logger.info { "Shutting Down FreedomFood Console App" }
     }
 
-    fun menu() :Int { return freedomfoodView.menu() }
+    private fun menu() :Int { return freedomfoodView.menu() }
 
-    fun add(){
-        var afreedomfood = FreedomFoodModel()
+    private fun add(){
+        val afreedomfood = FreedomFoodModel()
 
         if (freedomfoodView.addRestaurantData(afreedomfood))
             freedomfoods.create(afreedomfood)
@@ -47,14 +47,14 @@ class FreedomFoodController {
             logger.info("Restaurant Not Added")
     }
 
-    fun list() {
+    private fun list() {
         freedomfoodView.listRestaurants(freedomfoods)
     }
 
-    fun update() {
+    private fun update() {
 
         freedomfoodView.listRestaurants(freedomfoods)
-        var searchId = freedomfoodView.getId()
+        val searchId = freedomfoodView.getId()
         val afreedomfood = search(searchId)
 
         if(afreedomfood != null) {
@@ -70,20 +70,19 @@ class FreedomFoodController {
             println("Restaurant Not Updated...")
     }
 
-    fun search() {
+    private fun search() {
         val afreedomfood = search(freedomfoodView.getId())!!
         freedomfoodView.showRestaurant(afreedomfood)
     }
 
 
-    fun search(id: Long) : FreedomFoodModel? {
-        var foundRestaurant = freedomfoods.findOne(id)
-        return foundRestaurant
+    private fun search(id: Long): FreedomFoodModel? {
+        return freedomfoods.findOne(id)
     }
 
-    fun delete() {
+    private fun delete() {
         freedomfoodView.listRestaurants(freedomfoods)
-        var searchId = freedomfoodView.getId()
+        val searchId = freedomfoodView.getId()
         val afreedomfood = search(searchId)
 
         if(afreedomfood != null) {
@@ -95,7 +94,7 @@ class FreedomFoodController {
             println("Restaurant Not Deleted...")
     }
 
-    fun dummyData() {
+    private fun dummyData() {
         freedomfoods.create(FreedomFoodModel(restaurantname = "New York New York", restaurantdescription = "So Good They Named It Twice"))
         freedomfoods.create(FreedomFoodModel(restaurantname= "Ring of Kerry", restaurantdescription = "Some place in the Kingdom"))
         freedomfoods.create(FreedomFoodModel(restaurantname = "Waterford City", restaurantdescription = "You get great Blaas Here!!"))

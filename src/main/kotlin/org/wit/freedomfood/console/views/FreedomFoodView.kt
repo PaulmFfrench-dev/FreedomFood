@@ -7,7 +7,7 @@ class FreedomFoodView {
 
     fun menu() : Int {
 
-        var option : Int
+        val option : Int
         var input: String? = null
 
         println("Main Menu")
@@ -54,8 +54,8 @@ class FreedomFoodView {
 
     fun updateRestaurantData(freedomfood : FreedomFoodModel) : Boolean {
 
-        var tempTitle: String?
-        var tempDescription: String?
+        val tempTitle: String?
+        val tempDescription: String?
 
         if (freedomfood != null) {
             print("Enter a new Title for [ " + freedomfood.restaurantname + " ] : ")
@@ -73,8 +73,8 @@ class FreedomFoodView {
     }
 
     fun getId() : Long {
-        var strId : String? // String to hold user input
-        var searchId : Long // Long to hold converted id
+        val strId : String? // String to hold user input
+        val searchId : Long // Long to hold converted id
         print("Enter id to Search/Update/Delete : ")
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())

@@ -5,5 +5,5 @@ interface FreedomFoodStore {
     fun findOne(id: Long): FreedomFoodModel?
     fun create(freedomfood: FreedomFoodModel)
     fun update(freedomfood: FreedomFoodModel)
-    fun delete(placemark: FreedomFoodModel)
+    fun delete(freedomfood: FreedomFoodModel)
 }

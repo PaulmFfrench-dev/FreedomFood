@@ -11,15 +11,14 @@ internal fun getId(): Long {
 
 class FreedomFoodMemStore : FreedomFoodStore {
 
-    val freedomfoods = ArrayList<FreedomFoodModel>()
+    private val freedomfoods = ArrayList<FreedomFoodModel>()
 
     override fun findAll(): List<FreedomFoodModel> {
         return freedomfoods
     }
 
-    override fun findOne(id: Long) : FreedomFoodModel? {
-        var foundFreedomFoods: FreedomFoodModel? = freedomfoods.find { p -> p.id == id }
-        return foundFreedomFoods
+    override fun findOne(id: Long): FreedomFoodModel? {
+        return freedomfoods.find { p -> p.id == id }
     }
 
     override fun create(freedomfood: FreedomFoodModel) {
@@ -29,7 +28,7 @@ class FreedomFoodMemStore : FreedomFoodStore {
     }
 
     override fun update(freedomfood: FreedomFoodModel) {
-        var foundFreedomFoods = findOne(freedomfood.id!!)
+        val foundFreedomFoods = findOne(freedomfood.id)
         if (foundFreedomFoods != null) {
             foundFreedomFoods.restaurantname = freedomfood.restaurantname
             foundFreedomFoods.restaurantdescription = freedomfood.restaurantdescription
@@ -40,7 +39,7 @@ class FreedomFoodMemStore : FreedomFoodStore {
         freedomfoods.remove(freedomfood)
     }
 
-    internal fun logAll() {
-        freedomfoods.forEach { logger.info("${it}") }
+    private fun logAll() {
+        freedomfoods.forEach { logger.info("$it") }
     }
 }
