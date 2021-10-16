@@ -4,6 +4,9 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
+var restaurantname = ""
+var restaurantdescription = ""
+
 fun main(args: Array<String>){
     logger.info { "Launching FreedomFood Console App" }
     println("FreedomFood Kotlin App Version 1.0")
@@ -46,11 +49,23 @@ fun menu() : Int {
 
 
 fun addRestaurant(){
-    println("You Chose Add Restaurant")
+    println("Add a Restaurant")
+    print("\nEnter a Restaurants name : ")
+    restaurantname = readLine()!!
+    print("Enter a description for the Restaurants : ")
+    restaurantdescription = readLine()!!
+
+    println("You entered $restaurantname for the name and $restaurantdescription for the Restaurants description")
 }
 
 fun updateRestaurant() {
-    println("You Chose Update Restaurant")
+    println("Update Restaurant")
+
+    print("\nEnter a new Name for [ $restaurantname ] : ")
+    restaurantname = readLine()!!
+    print("Enter a new Description for [ $restaurantdescription ] : ")
+    restaurantdescription = readLine()!!
+    println("You updated [ $restaurantname ] for title and [ $restaurantdescription ] for description")
 }
 
 fun listRestaurants() {
