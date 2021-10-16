@@ -1,12 +1,13 @@
 package org.wit.freedomfood.console.main
 
 import mu.KotlinLogging
+import org.wit.freedomfood.console.models.FreedomFoodMemStore
 import org.wit.freedomfood.console.models.FreedomFoodModel
 
 private val logger = KotlinLogging.logger {}
 
 var freedomfood = FreedomFoodModel()
-val freedomfoods = ArrayList<FreedomFoodModel>()
+val freedomfoods = FreedomFoodMemStore()
 
 fun main(args: Array<String>){
     logger.info { "Launching FreedomFood Console App" }
