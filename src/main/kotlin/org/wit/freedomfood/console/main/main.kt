@@ -75,19 +75,28 @@ fun updateRestaurant() {
     listRestaurants()
     var searchId = getId()
     val afreedomfood = search(searchId)
+    var tempName : String? = "TempName"
+    var tempDescription : String? = "TempDescription"
 
-    if(afreedomfood !=null) {
+    if(afreedomfood != null) {
         print("Enter a new Name for [ " + afreedomfood.restaurantname + " ] : ")
         afreedomfood.restaurantname = readLine()!!
         print("Enter a new Description for [ " + afreedomfood.restaurantdescription + " ] : ")
         afreedomfood.restaurantdescription = readLine()!!
-        println(
-            "You updated [ " + afreedomfood.restaurantname + " ] for the name " +
-                    "and [ " + afreedomfood.restaurantdescription + " ] for the description"
-        )
+
+        if(!tempName.isNullOrEmpty() && !tempDescription.isNullOrEmpty()) {
+            afreedomfood.restaurantname = tempName
+            afreedomfood.restaurantdescription = tempDescription
+            println(
+                "You updated [ " + afreedomfood.restaurantname + " ] for the name " +
+                        "and [ " + afreedomfood.restaurantdescription + " ] for the description")
+            logger.info("Restaurant Updated : [ $afreedomfood ]")
+        }
+        else
+            logger.info("Restaurant Not Updated...")
     }
     else
-        println("Restaruant Not Updated...")
+        println("Restaurant Not Updated...")
 }
 
 fun listRestaurants() {
