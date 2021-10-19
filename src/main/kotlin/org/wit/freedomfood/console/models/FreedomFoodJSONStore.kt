@@ -33,11 +33,15 @@ class FreedomFoodJSONStore : FreedomFoodStore {
     }
 
     override fun findOne(id: Long): FreedomFoodModel? {
-        return freedomfoods.find { p -> p.id == id }
+        val hello = freedomfoods.find { p -> p.id == id }
+       //print(hello)
+        return hello
     }
 
     override fun create(freedomfood: FreedomFoodModel) {
         freedomfood.id = generateRandomId()
+        freedomfood.restaurantname = freedomfood.restaurantname
+        freedomfood.restaurantdescription = freedomfood.restaurantdescription
         freedomfoods.add(freedomfood)
         serialize()
     }

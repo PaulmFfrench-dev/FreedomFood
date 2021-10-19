@@ -1,47 +1,39 @@
 package org.wit.freedomfood.console.views
 
-import javafx.beans.property.SimpleStringProperty
-import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
-class RestaurantInfoScreen : View("Restaurant Information") {
-    val model = ViewModel()
-    val _title = model.bind { SimpleStringProperty() }
-    val _description = model.bind { SimpleStringProperty() }
-    val freedomfoodUIController: FreedomFoodUIController by inject()
+class RestaurantInfoScreen() : View("Restaurant Information") {
+    val FreedomFoodUIController: FreedomFoodUIController by inject()
+    val tableContent = FreedomFoodUIController.showdata()
 
-    override val root = form {
+    override val root = vbox {
+        setPrefSize(1000.0, 400.0)
         setPrefSize(600.0, 200.0)
-        fieldset(labelPosition = Orientation.VERTICAL) {
-            field("Title") {
-                textfield(_title).required()
-            }
-            field("Description") {
-                textarea(_description).required()
-            }
-            button("Back") {
-                useMaxWidth = true
-                action {
-                    runAsyncWithProgress {
-                        freedomfoodUIController.loadSearchScreenFromInfo()
-                    }
+//        tableview(data) {
+//            readonlyColumn("Id", FreedomFoodModel::id)
+//            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
+//            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+//        }
+        text(tableContent?.id.toString())
+        text(tableContent?.restaurantname.toString())
+        text(tableContent?.restaurantdescription.toString())
+        button("Back") {
+            useMaxWidth = true
+            action {
+                runAsyncWithProgress {
+                    FreedomFoodUIController.loadSearchScreenFromInfo()
                 }
             }
-            button("Close") {
-                useMaxWidth = true
-                action {
-                    runAsyncWithProgress {
-                        freedomfoodUIController.closeRestaurantInfo()
-                    }
+        }
+        button("Return to Main Menu") {
+            useMaxWidth = true
+            action {
+                runAsyncWithProgress {
+                    FreedomFoodUIController.closeRestaurantInfo()
                 }
             }
         }
     }
-
-    override fun onDock() {
-        _title.value = ""
-        _description.value = ""
-        model.clearDecorators()
-    }
 }
+

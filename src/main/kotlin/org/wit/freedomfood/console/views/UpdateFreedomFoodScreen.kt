@@ -3,9 +3,10 @@ package org.wit.freedomfood.console.views
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
+import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
 
-class UpdateFreedomFoodScreen : View("Update a Restaurant") {
+class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     val model = ViewModel()
     val _title = model.bind { SimpleStringProperty() }
     val _description = model.bind { SimpleStringProperty() }
@@ -14,13 +15,13 @@ class UpdateFreedomFoodScreen : View("Update a Restaurant") {
     override val root = form {
         setPrefSize(600.0, 200.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
-            field("Title") {
-                textfield(_title).required()
+            field("Restaurant Name") {
+               textfield(_title)
             }
             field("Description") {
                 textarea(_description).required()
             }
-            button("Update") {
+            button("Restaurant Update") {
                 enableWhen(model.valid)
                 isDefaultButton = true
                 useMaxWidth = true
@@ -39,7 +40,7 @@ class UpdateFreedomFoodScreen : View("Update a Restaurant") {
                     }
                 }
             }
-            button("Close") {
+            button("Return to Main Menu") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {

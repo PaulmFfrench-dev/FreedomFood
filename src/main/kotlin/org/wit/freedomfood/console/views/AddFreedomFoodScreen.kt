@@ -5,7 +5,7 @@ import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
-class AddFreedomFoodScreen : View("Add Restaurant") {
+class AddFreedomFoodScreen : View("Add a Restaurant") {
     val model = ViewModel()
     val _title = model.bind { SimpleStringProperty() }
     val _description = model.bind { SimpleStringProperty() }
@@ -14,10 +14,10 @@ class AddFreedomFoodScreen : View("Add Restaurant") {
     override val root = form {
         setPrefSize(600.0, 200.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
-            field("Title") {
+            field("Restuarant name") {
                 textfield(_title).required()
             }
-            field("Description") {
+            field("Restuarant Description") {
                 textarea(_description).required()
             }
             button("Add") {
@@ -26,12 +26,12 @@ class AddFreedomFoodScreen : View("Add Restaurant") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.add(_title.toString(),_description.toString())
-
+                        freedomfoodUIController.add(_title.value,_description.value)
+                        freedomfoodUIController.closeAdd()
                     }
                 }
             }
-            button("Close") {
+            button("Return to Main Menu") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {

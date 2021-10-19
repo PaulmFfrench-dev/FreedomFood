@@ -1,44 +1,65 @@
 package org.wit.freedomfood.console.controllers
 
-import javafx.beans.property.SimpleIntegerProperty
 import mu.KotlinLogging
 import org.wit.freedomfood.console.models.FreedomFoodJSONStore
 import org.wit.freedomfood.console.models.FreedomFoodModel
+import org.wit.freedomfood.console.models.FreedomFoodSearchDataJSONStore
+import org.wit.freedomfood.console.models.FreedomFoodSearchDataModel
 import org.wit.freedomfood.console.views.*
 import tornadofx.*
 
 class FreedomFoodUIController : Controller() {
-
+    val freedomfoodmodel = FreedomFoodModel()
+    val freedomfoodView = SearchFreedomFoodScreen()
     val freedomfoods = FreedomFoodJSONStore()
+    val freedomfoodsearchdata = FreedomFoodSearchDataJSONStore()
     val logger = KotlinLogging.logger {}
 
     init {
-        logger.info { "Launching Placemark TornadoFX UI App" }
+        logger.info { "Launching FreedomFood TornadoFX UI App" }
     }
     fun add(_title : String, _description : String){
-
         var afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
         freedomfoods.create(afreedomfood)
         logger.info("Restaurant Added")
     }
+
+    fun addSearchData(_id : Long){
+        var afreedomfood = FreedomFoodSearchDataModel(id = _id)
+        freedomfoodsearchdata.create(afreedomfood)
+        logger.info("Search Data Added")
+    }
+
+    fun showdata(): FreedomFoodModel? {
+        var latestId = freedomfoodsearchdata.findLatest()
+        var newid = latestId?.id!!.toLong()
+        return search(newid)
+    }
+
     fun update(_title : String, _description : String){
-
         var afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
         freedomfoods.create(afreedomfood)
-        logger.info("Restaurant Added")
+        logger.info("Restaurant created")
     }
-    fun delete(_title : String, _description : String){
 
-        var afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
-        freedomfoods.create(afreedomfood)
-        logger.info("Restaurant Added")
+    fun delete(_id: Long){
+        val afreedomfood = search(id = _id)
+        print(afreedomfood)
+        if(afreedomfood != null) {
+            freedomfoods.delete(afreedomfood)
+            logger.info("Restaurant Deleted...")
+            freedomfoods.findAll()
+            println("world")
+        }
+        else
+            logger.info("Restaurant Not Deleted...")
+            println("hello")
     }
-    fun search(_title : String, _description : String){
 
-        var afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
-        freedomfoods.create(afreedomfood)
-        logger.info("Restaurant Search")
+    fun search(id: Long): FreedomFoodModel? {
+        return freedomfoods.findOne(id)
     }
+
     fun loadAddScreen() {
         runLater {
             find(MenuScreen::class).replaceWith(AddFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
@@ -52,7 +73,7 @@ class FreedomFoodUIController : Controller() {
     }
     fun loadUpdateSearchScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(UpdateFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            find(MenuScreen::class).replaceWith(UpdateSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
         }
     }
     fun loadUpdateScreen() {
@@ -72,7 +93,7 @@ class FreedomFoodUIController : Controller() {
     }
     fun loadSearchScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(UpdateSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            find(MenuScreen::class).replaceWith(SearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
         }
     }
     fun loadSearchScreenFromInfo() {

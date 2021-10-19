@@ -1,12 +1,27 @@
 [
   {
-    "id": -2108105355901074637,
-    "restaurantname": "StringProperty [bean: tornadofx.ViewModel@7da7d7c6, value: Chipper]",
-    "restaurantdescription": "StringProperty [bean: tornadofx.ViewModel@7da7d7c6, value: Greasy]"
+    "id": 111231232323,
+    "restaurantname": "",
+    "restaurantdescription": ""
   },
   {
-    "id": 2259984485151034047,
-    "restaurantname": "StringProperty [bean: tornadofx.ViewModel@34e39db6, value: Penguin]",
-    "restaurantdescription": "StringProperty [bean: tornadofx.ViewModel@34e39db6, value: Chipper]"
+    "id": 1100281601945829359,
+    "restaurantname": "hello",
+    "restaurantdescription": "world"
+  },
+  {
+    "id": -5541640476208342089,
+    "restaurantname": "1231",
+    "restaurantdescription": "21312"
+  },
+  {
+    "id": -8602589796779441899,
+    "restaurantname": "12312312",
+    "restaurantdescription": "1231221"
+  },
+  {
+    "id": -1758941137751049141,
+    "restaurantname": "The Swan",
+    "restaurantdescription": "This is a chinese Restaurant"
   }
 ]

@@ -5,33 +5,28 @@ import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
-class DeleteFreedomFoodScreen : View("Delete Restaurant") {
+class DeleteFreedomFoodScreen : View("Search for a Restaurant to Delete") {
     val model = ViewModel()
-    val _title = model.bind { SimpleStringProperty() }
-    val _description = model.bind { SimpleStringProperty() }
+    val _id = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
         setPrefSize(600.0, 200.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
-            field("Title") {
-                textfield(_title).required()
+            field("Search by ID") {
+                textfield(_id).required()
             }
-            field("Description") {
-                textarea(_description).required()
-            }
-            button("Add") {
+            button("Delete") {
                 enableWhen(model.valid)
                 isDefaultButton = true
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.delete(_title.toString(),_description.toString())
-
+                        //freedomfoodUIController.search()
                     }
                 }
             }
-            button("Close") {
+            button("Return to Main Menu") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
@@ -40,11 +35,5 @@ class DeleteFreedomFoodScreen : View("Delete Restaurant") {
                 }
             }
         }
-    }
-
-    override fun onDock() {
-        _title.value = ""
-        _description.value = ""
-        model.clearDecorators()
     }
 }

@@ -75,7 +75,6 @@ class FreedomFoodController {
         freedomfoodView.showRestaurant(afreedomfood)
     }
 
-
     private fun search(id: Long): FreedomFoodModel? {
         return freedomfoods.findOne(id)
     }
