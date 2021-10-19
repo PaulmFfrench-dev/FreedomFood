@@ -1,8 +1,11 @@
 package org.wit.freedomfood.console.views
 
+import com.sun.org.apache.xerces.internal.util.DOMUtil.getValue
+import javafx.beans.property.ObjectProperty
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
+import kotlin.reflect.KMutableProperty1
 
 class ListFreedomFoodScreen : View("List Restaurants") {
     val FreedomFoodUIController: FreedomFoodUIController by inject()
@@ -14,7 +17,7 @@ class ListFreedomFoodScreen : View("List Restaurants") {
         setPrefSize(600.0, 200.0)
         tableview(data) {
             readonlyColumn("ID", FreedomFoodModel::id)
-            readonlyColumn("TITLE", FreedomFoodModel::restaurantname)
+            readonlyColumn("NAME", FreedomFoodModel::restaurantname)
             readonlyColumn("DESCRIPTION", FreedomFoodModel::restaurantdescription)
         }
         button("Close") {

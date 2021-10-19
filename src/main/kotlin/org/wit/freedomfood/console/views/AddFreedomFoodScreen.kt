@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
-import kotlin.reflect.KClass
 
 class AddFreedomFoodScreen : View("Add Restaurant") {
     val model = ViewModel()

@@ -35,6 +35,39 @@ class MenuScreen : View("FreedomFood Main Menu") {
                 }
             }
             text("")
+            button("Update Restaurants") {
+
+                isDefaultButton = true
+                useMaxWidth = true
+                action {
+                    runAsyncWithProgress {
+                        freedomfoodUIController.loadUpdateSearchScreen()
+                    }
+                }
+            }
+            text("")
+            button("Delete Restaurants") {
+
+                isDefaultButton = true
+                useMaxWidth = true
+                action {
+                    runAsyncWithProgress {
+                        freedomfoodUIController.loadDeleteScreen()
+                    }
+                }
+            }
+            text("")
+            button("Search Restaurants") {
+
+                isDefaultButton = true
+                useMaxWidth = true
+                action {
+                    runAsyncWithProgress {
+                        freedomfoodUIController.loadSearchScreen()
+                    }
+                }
+            }
+            text("")
             button("Exit") {
 
                 isDefaultButton = true
