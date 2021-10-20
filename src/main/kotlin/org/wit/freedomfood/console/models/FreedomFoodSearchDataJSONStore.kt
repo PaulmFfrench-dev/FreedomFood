@@ -34,11 +34,6 @@ class FreedomFoodSearchDataJSONStore : FreedomFoodSearchDataStore {
         serialize()
     }
 
-    override fun delete(freedomfood: FreedomFoodSearchDataModel) {
-        freedomfoods.remove(freedomfood)
-        serialize()
-    }
-
     private fun serialize() {
         val jsonString = DatagsonBuilder.toJson(freedomfoods, DatalistType)
         write(JSONData_FILE, jsonString)

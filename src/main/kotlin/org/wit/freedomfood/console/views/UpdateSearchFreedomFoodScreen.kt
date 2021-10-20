@@ -1,15 +1,13 @@
 package org.wit.freedomfood.console.views
 
-import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
-import jdk.nashorn.internal.runtime.JSType.toLong
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
 class UpdateSearchFreedomFoodScreen : View("Search for a Restaurant to Update") {
     val model = ViewModel()
-    val _id = model.bind { SimpleIntegerProperty() }
+    val _id = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
@@ -22,6 +20,7 @@ class UpdateSearchFreedomFoodScreen : View("Search for a Restaurant to Update") 
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
+                        freedomfoodUIController.addSearchData(_id.value.toLong())!!
                         freedomfoodUIController.loadUpdateScreen()
                     }
                 }

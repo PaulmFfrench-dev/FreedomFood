@@ -52,7 +52,7 @@ class MenuScreen : View("FreedomFood Main Menu") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.loadDeleteScreen()
+                        freedomfoodUIController.loadDeleteSearchScreen()
                     }
                 }
             }

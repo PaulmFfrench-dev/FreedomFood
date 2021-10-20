@@ -11,12 +11,22 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     val _title = model.bind { SimpleStringProperty() }
     val _description = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
+    val tableContent = freedomfoodUIController.showdata()
 
     override val root = form {
+        setPrefSize(1000.0, 400.0)
         setPrefSize(600.0, 200.0)
+//        tableview(data) {
+//            readonlyColumn("Id", FreedomFoodModel::id)
+//            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
+//            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+//        }
+        text("Id: "+tableContent?.id.toString())
+        text("Name: "+tableContent?.restaurantname.toString())
+        text("Description: "+tableContent?.restaurantdescription.toString())
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Restaurant Name") {
-               textfield(_title)
+               textfield(_title).required()
             }
             field("Description") {
                 textarea(_description).required()
@@ -27,8 +37,8 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.update(_title.toString(),_description.toString())
-
+                        freedomfoodUIController.update(_title.value.toString(),_description.value.toString())
+                        freedomfoodUIController.closeUpdate()
                     }
                 }
             }

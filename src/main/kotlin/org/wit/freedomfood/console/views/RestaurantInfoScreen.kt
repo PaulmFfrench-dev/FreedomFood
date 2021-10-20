@@ -15,9 +15,9 @@ class RestaurantInfoScreen() : View("Restaurant Information") {
 //            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
 //            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
 //        }
-        text(tableContent?.id.toString())
-        text(tableContent?.restaurantname.toString())
-        text(tableContent?.restaurantdescription.toString())
+        text("Id: "+tableContent?.id.toString())
+        text("Name: "+tableContent?.restaurantname.toString())
+        text("Description: "+tableContent?.restaurantdescription.toString())
         button("Back") {
             useMaxWidth = true
             action {

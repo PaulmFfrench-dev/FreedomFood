@@ -48,9 +48,10 @@ class FreedomFoodJSONStore : FreedomFoodStore {
 
     override fun update(freedomfood: FreedomFoodModel) {
         val foundRestaurant = findOne(freedomfood.id)
+        print(foundRestaurant)
         if (foundRestaurant != null) {
-            foundRestaurant.restaurantname = foundRestaurant.restaurantname
-            foundRestaurant.restaurantdescription = foundRestaurant.restaurantdescription
+            foundRestaurant.restaurantname = freedomfood.restaurantname
+            foundRestaurant.restaurantdescription = freedomfood.restaurantdescription
         }
         serialize()
     }

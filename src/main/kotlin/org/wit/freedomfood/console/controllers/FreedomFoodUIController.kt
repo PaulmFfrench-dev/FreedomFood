@@ -10,7 +10,6 @@ import tornadofx.*
 
 class FreedomFoodUIController : Controller() {
     val freedomfoodmodel = FreedomFoodModel()
-    val freedomfoodView = SearchFreedomFoodScreen()
     val freedomfoods = FreedomFoodJSONStore()
     val freedomfoodsearchdata = FreedomFoodSearchDataJSONStore()
     val logger = KotlinLogging.logger {}
@@ -37,23 +36,23 @@ class FreedomFoodUIController : Controller() {
     }
 
     fun update(_title : String, _description : String){
-        var afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
-        freedomfoods.create(afreedomfood)
-        logger.info("Restaurant created")
+        var latestData = showdata()
+        var afreedomfood = FreedomFoodModel(id = latestData?.id!!,restaurantname = _title, restaurantdescription = _description)
+        if(afreedomfood != null) {
+                freedomfoods.update(afreedomfood)
+                logger.info("Restaurant Updated : [ $afreedomfood ]")
+        }
+        else
+         logger.info("Restaurant not updated")
     }
 
-    fun delete(_id: Long){
-        val afreedomfood = search(id = _id)
-        print(afreedomfood)
+    fun delete(afreedomfood: FreedomFoodModel?){
         if(afreedomfood != null) {
             freedomfoods.delete(afreedomfood)
             logger.info("Restaurant Deleted...")
-            freedomfoods.findAll()
-            println("world")
         }
         else
             logger.info("Restaurant Not Deleted...")
-            println("hello")
     }
 
     fun search(id: Long): FreedomFoodModel? {
@@ -86,9 +85,19 @@ class FreedomFoodUIController : Controller() {
             find(UpdateFreedomFoodScreen::class).replaceWith(UpdateSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
         }
     }
+    fun loadDeleteSearchScreen() {
+        runLater {
+            find(MenuScreen::class).replaceWith(DeleteSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
+    fun loadDeleteSearchScreenFromDelete() {
+        runLater {
+            find(DeleteFreedomFoodScreen::class).replaceWith(DeleteSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
     fun loadDeleteScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(DeleteFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            find(DeleteSearchFreedomFoodScreen::class).replaceWith(DeleteFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
         }
     }
     fun loadSearchScreen() {
@@ -124,6 +133,11 @@ class FreedomFoodUIController : Controller() {
     fun closeDelete() {
         runLater {
             find(DeleteFreedomFoodScreen::class).replaceWith(MenuScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
+    fun closeDeleteSearch() {
+        runLater {
+            find(DeleteSearchFreedomFoodScreen::class).replaceWith(MenuScreen::class, sizeToScene = true, centerOnScreen = true)
         }
     }
     fun closeSearch() {
