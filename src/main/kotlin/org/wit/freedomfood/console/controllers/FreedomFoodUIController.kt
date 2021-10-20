@@ -31,7 +31,7 @@ class FreedomFoodUIController : Controller() {
 
     fun showdata(): FreedomFoodModel? {
         val latestId = freedomfoodsearchdata.findLatest()
-        val newid = latestId?.id!!.toLong()
+        val newid = latestId.id
         return search(newid)
     }
 
@@ -53,6 +53,17 @@ class FreedomFoodUIController : Controller() {
 
     private fun search(id: Long): FreedomFoodModel? {
         return freedomfoods.findOne(id)
+    }
+
+    fun doesSearchExist(id: Long): Boolean {
+        if(freedomfoods.findOne(id) != null) {
+            return true
+        }
+        return false
+    }
+
+    fun doesNotExist() {
+        print("This ID does not exist")
     }
 
     fun loadAddScreen() {

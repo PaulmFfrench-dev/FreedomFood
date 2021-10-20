@@ -22,8 +22,12 @@ class DeleteSearchFreedomFoodScreen : View("Search for a Restaurant to Delete") 
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.addSearchData(_id.value.toLong())
-                        freedomfoodUIController.loadDeleteScreen()
+                        if (freedomfoodUIController.doesSearchExist(_id.value.toLong())) {
+                            freedomfoodUIController.addSearchData(_id.value.toLong())
+                            freedomfoodUIController.loadDeleteScreen()
+                        }
+                        else
+                            freedomfoodUIController.doesNotExist()
                     }
                 }
             }

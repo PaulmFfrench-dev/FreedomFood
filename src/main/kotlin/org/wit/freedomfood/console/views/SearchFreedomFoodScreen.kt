@@ -17,11 +17,17 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
                 textfield(_id).required()
             }
             button("Search") {
+                enableWhen(model.valid)
+                isDefaultButton = true
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.addSearchData(_id.value.toLong())
-                        freedomfoodUIController.loadRestaurantInfoScreen()
+                        if (freedomfoodUIController.doesSearchExist(_id.value.toLong())) {
+                            freedomfoodUIController.addSearchData(_id.value.toLong())
+                            freedomfoodUIController.loadRestaurantInfoScreen()
+                        }
+                        else
+                            freedomfoodUIController.doesNotExist()
                     }
                 }
             }
