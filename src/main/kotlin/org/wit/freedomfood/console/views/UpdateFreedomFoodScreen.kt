@@ -7,8 +7,8 @@ import tornadofx.*
 
 class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     private val model = ViewModel()
-    private val _title = model.bind { SimpleStringProperty() }
-    private val _description = model.bind { SimpleStringProperty() }
+    private val _restaurantname = model.bind { SimpleStringProperty() }
+    private val _restaurantdescription = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
     private val tableContent = freedomfoodUIController.showdata()
 
@@ -25,10 +25,10 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
         text("Description: "+tableContent?.restaurantdescription.toString())
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Restaurant Name") {
-               textfield(_title).required()
+               textfield(_restaurantname).required()
             }
             field("Description") {
-                textarea(_description).required()
+                textarea(_restaurantdescription).required()
             }
             button("Restaurant Update") {
                 enableWhen(model.valid)
@@ -36,7 +36,7 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.update(_title.value.toString(),_description.value.toString())
+                        freedomfoodUIController.update(_restaurantname.value.toString(),_restaurantdescription.value.toString())
                         freedomfoodUIController.closeUpdate()
                     }
                 }
@@ -61,8 +61,8 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     }
 
     override fun onDock() {
-        _title.value = ""
-        _description.value = ""
+        _restaurantname.value = ""
+        _restaurantdescription.value = ""
         model.clearDecorators()
     }
 }

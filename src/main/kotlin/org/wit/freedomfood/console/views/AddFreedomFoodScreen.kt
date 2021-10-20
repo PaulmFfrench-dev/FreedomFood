@@ -7,18 +7,18 @@ import tornadofx.*
 
 class AddFreedomFoodScreen : View("Add a Restaurant") {
     private val model = ViewModel()
-    private val _title = model.bind { SimpleStringProperty() }
-    private val _description = model.bind { SimpleStringProperty() }
+    private val _restaurantname = model.bind { SimpleStringProperty() }
+    private val _restaurantdescription = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
         setPrefSize(600.0, 200.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Restuarant name") {
-                textfield(_title).required()
+                textfield(_restaurantname).required()
             }
             field("Restuarant Description") {
-                textarea(_description).required()
+                textarea(_restaurantdescription).required()
             }
             button("Add") {
                 enableWhen(model.valid)
@@ -26,7 +26,7 @@ class AddFreedomFoodScreen : View("Add a Restaurant") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.add(_title.value,_description.value)
+                        freedomfoodUIController.add(_restaurantname.value,_restaurantdescription.value)
                         freedomfoodUIController.closeAdd()
                     }
                 }
@@ -43,8 +43,8 @@ class AddFreedomFoodScreen : View("Add a Restaurant") {
     }
 
     override fun onDock() {
-        _title.value = ""
-        _description.value = ""
+        _restaurantname.value = ""
+        _restaurantdescription.value = ""
         model.clearDecorators()
     }
 }

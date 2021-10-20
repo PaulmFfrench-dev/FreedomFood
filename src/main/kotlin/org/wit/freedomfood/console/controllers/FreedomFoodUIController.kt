@@ -17,8 +17,8 @@ class FreedomFoodUIController : Controller() {
     init {
         logger.info { "Launching FreedomFood TornadoFX UI App" }
     }
-    fun add(_title : String, _description : String){
-        val afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
+    fun add(_restaurantname : String, _restaurantdescription : String){
+        val afreedomfood = FreedomFoodModel(restaurantname = _restaurantname, restaurantdescription = _restaurantdescription)
         freedomfoods.create(afreedomfood)
         logger.info("Restaurant Added")
     }
@@ -35,9 +35,9 @@ class FreedomFoodUIController : Controller() {
         return search(newid)
     }
 
-    fun update(_title : String, _description : String){
+    fun update(_restaurantname : String, _restaurantdescription : String){
         val latestData = showdata()
-        val afreedomfood = FreedomFoodModel(id = latestData?.id!!,restaurantname = _title, restaurantdescription = _description)
+        val afreedomfood = FreedomFoodModel(id = latestData?.id!!,restaurantname = _restaurantname, restaurantdescription = _restaurantdescription)
         freedomfoods.update(afreedomfood)
         logger.info("Restaurant Updated : [ $afreedomfood ]")
     }

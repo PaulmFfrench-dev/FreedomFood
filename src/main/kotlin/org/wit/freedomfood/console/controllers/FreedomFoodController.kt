@@ -13,7 +13,7 @@ class FreedomFoodController {
 
     init {
         logger.info { "Launching FreedomFood Console App" }
-        println("FreedomFood Kotlin App Version 4.0")
+        println("FreedomFood Kotlin App Version 5.0")
     }
 
     fun start() {
