@@ -6,9 +6,9 @@ import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
 class AddFreedomFoodScreen : View("Add a Restaurant") {
-    val model = ViewModel()
-    val _title = model.bind { SimpleStringProperty() }
-    val _description = model.bind { SimpleStringProperty() }
+    private val model = ViewModel()
+    private val _title = model.bind { SimpleStringProperty() }
+    private val _description = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {

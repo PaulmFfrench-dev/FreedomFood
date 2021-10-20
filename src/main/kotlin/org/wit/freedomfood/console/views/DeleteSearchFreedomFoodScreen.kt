@@ -6,8 +6,8 @@ import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
 class DeleteSearchFreedomFoodScreen : View("Search for a Restaurant to Delete") {
-    val model = ViewModel()
-    val _id = model.bind { SimpleStringProperty() }
+    private val model = ViewModel()
+    private val _id = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
@@ -22,7 +22,7 @@ class DeleteSearchFreedomFoodScreen : View("Search for a Restaurant to Delete") 
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.addSearchData(_id.value.toLong())!!
+                        freedomfoodUIController.addSearchData(_id.value.toLong())
                         freedomfoodUIController.loadDeleteScreen()
                     }
                 }

@@ -5,9 +5,9 @@ import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
 
 class ListFreedomFoodScreen : View("List Restaurants") {
-    val FreedomFoodUIController: FreedomFoodUIController by inject()
-    val tableContent = FreedomFoodUIController.freedomfoods.findAll()
-    val data = tableContent.observable()
+    val freedomFoodUIController: FreedomFoodUIController by inject()
+    private val tableContent = freedomFoodUIController.freedomfoods.findAll()
+    private val data = tableContent.observable()
 
     override val root = vbox {
         setPrefSize(1000.0, 400.0)
@@ -21,7 +21,7 @@ class ListFreedomFoodScreen : View("List Restaurants") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    FreedomFoodUIController.closeList()
+                    freedomFoodUIController.closeList()
                 }
             }
         }

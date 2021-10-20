@@ -8,7 +8,6 @@ class FreedomFoodView {
     fun menu() : Int {
 
         val option : Int
-        var input: String? = null
 
         println("Main Menu")
         println(" 1. Add a Restaurant")
@@ -19,8 +18,8 @@ class FreedomFoodView {
         println("-1. Exit")
         println()
         print("Enter Option : ")
-        input = readLine()!!
-        option = if (input.toIntOrNull() != null && !input.isEmpty())
+        val input: String? = readLine()!!
+        option = if (input?.toIntOrNull() != null && input.isNotEmpty())
             input.toInt()
         else
             -9
@@ -35,10 +34,7 @@ class FreedomFoodView {
     }
 
     fun showRestaurant(freedomfood : FreedomFoodModel) {
-        if(freedomfood != null)
-            println("Restaurant Details [ $freedomfood ]")
-        else
-            println("Restaurant Not Found...")
+        println("Restaurant Details [ $freedomfood ]")
     }
 
     fun addRestaurantData(freedomfood : FreedomFoodModel) : Boolean {
@@ -54,30 +50,24 @@ class FreedomFoodView {
 
     fun updateRestaurantData(freedomfood : FreedomFoodModel) : Boolean {
 
-        val tempTitle: String?
-        val tempDescription: String?
+        print("Enter a new Title for [ " + freedomfood.restaurantname + " ] : ")
+        val tempTitle: String? = readLine()!!
+        print("Enter a new Description for [ " + freedomfood.restaurantdescription + " ] : ")
+        val tempDescription: String? = readLine()!!
 
-        if (freedomfood != null) {
-            print("Enter a new Title for [ " + freedomfood.restaurantname + " ] : ")
-            tempTitle = readLine()!!
-            print("Enter a new Description for [ " + freedomfood.restaurantdescription + " ] : ")
-            tempDescription = readLine()!!
-
-            if (!tempTitle.isNullOrEmpty() && !tempDescription.isNullOrEmpty()) {
-                freedomfood.restaurantname = tempTitle
-                freedomfood.restaurantdescription = tempDescription
-                return true
-            }
+        if (!tempTitle.isNullOrEmpty() && !tempDescription.isNullOrEmpty()) {
+            freedomfood.restaurantname = tempTitle
+            freedomfood.restaurantdescription = tempDescription
+            return true
         }
         return false
     }
 
     fun getId() : Long {
-        val strId : String? // String to hold user input
         val searchId : Long // Long to hold converted id
         print("Enter id to Search/Update/Delete : ")
-        strId = readLine()!!
-        searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
+        val strId : String? = readLine()!! // String to hold user input
+        searchId = if (strId?.toLongOrNull() != null && strId.isNotEmpty())
             strId.toLong()
         else
             -9

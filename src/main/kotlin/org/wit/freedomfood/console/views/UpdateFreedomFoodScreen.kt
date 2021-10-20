@@ -3,15 +3,14 @@ package org.wit.freedomfood.console.views
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
-import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
 
 class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
-    val model = ViewModel()
-    val _title = model.bind { SimpleStringProperty() }
-    val _description = model.bind { SimpleStringProperty() }
+    private val model = ViewModel()
+    private val _title = model.bind { SimpleStringProperty() }
+    private val _description = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
-    val tableContent = freedomfoodUIController.showdata()
+    private val tableContent = freedomfoodUIController.showdata()
 
     override val root = form {
         setPrefSize(1000.0, 400.0)

@@ -11,39 +11,35 @@ import tornadofx.*
 class FreedomFoodUIController : Controller() {
     val freedomfoodmodel = FreedomFoodModel()
     val freedomfoods = FreedomFoodJSONStore()
-    val freedomfoodsearchdata = FreedomFoodSearchDataJSONStore()
-    val logger = KotlinLogging.logger {}
+    private val freedomfoodsearchdata = FreedomFoodSearchDataJSONStore()
+    private val logger = KotlinLogging.logger {}
 
     init {
         logger.info { "Launching FreedomFood TornadoFX UI App" }
     }
     fun add(_title : String, _description : String){
-        var afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
+        val afreedomfood = FreedomFoodModel(restaurantname = _title, restaurantdescription = _description)
         freedomfoods.create(afreedomfood)
         logger.info("Restaurant Added")
     }
 
     fun addSearchData(_id : Long){
-        var afreedomfood = FreedomFoodSearchDataModel(id = _id)
+        val afreedomfood = FreedomFoodSearchDataModel(id = _id)
         freedomfoodsearchdata.create(afreedomfood)
         logger.info("Search Data Added")
     }
 
     fun showdata(): FreedomFoodModel? {
-        var latestId = freedomfoodsearchdata.findLatest()
-        var newid = latestId?.id!!.toLong()
+        val latestId = freedomfoodsearchdata.findLatest()
+        val newid = latestId?.id!!.toLong()
         return search(newid)
     }
 
     fun update(_title : String, _description : String){
-        var latestData = showdata()
-        var afreedomfood = FreedomFoodModel(id = latestData?.id!!,restaurantname = _title, restaurantdescription = _description)
-        if(afreedomfood != null) {
-                freedomfoods.update(afreedomfood)
-                logger.info("Restaurant Updated : [ $afreedomfood ]")
-        }
-        else
-         logger.info("Restaurant not updated")
+        val latestData = showdata()
+        val afreedomfood = FreedomFoodModel(id = latestData?.id!!,restaurantname = _title, restaurantdescription = _description)
+        freedomfoods.update(afreedomfood)
+        logger.info("Restaurant Updated : [ $afreedomfood ]")
     }
 
     fun delete(afreedomfood: FreedomFoodModel?){
@@ -55,7 +51,7 @@ class FreedomFoodUIController : Controller() {
             logger.info("Restaurant Not Deleted...")
     }
 
-    fun search(id: Long): FreedomFoodModel? {
+    private fun search(id: Long): FreedomFoodModel? {
         return freedomfoods.findOne(id)
     }
 

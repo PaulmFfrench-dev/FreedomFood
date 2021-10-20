@@ -6,8 +6,8 @@ import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
 class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
-    val model = ViewModel()
-    val _id = model.bind { SimpleStringProperty() }
+    private val model = ViewModel()
+    private val _id = model.bind { SimpleStringProperty() }
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
@@ -20,7 +20,7 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.addSearchData(_id.value.toLong())!!
+                        freedomfoodUIController.addSearchData(_id.value.toLong())
                         freedomfoodUIController.loadRestaurantInfoScreen()
                     }
                 }

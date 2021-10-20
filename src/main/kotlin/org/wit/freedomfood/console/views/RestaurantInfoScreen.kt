@@ -3,9 +3,9 @@ package org.wit.freedomfood.console.views
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
-class RestaurantInfoScreen() : View("Restaurant Information") {
-    val FreedomFoodUIController: FreedomFoodUIController by inject()
-    val tableContent = FreedomFoodUIController.showdata()
+class RestaurantInfoScreen : View("Restaurant Information") {
+    val freedomFoodUIController: FreedomFoodUIController by inject()
+    private val tableContent = freedomFoodUIController.showdata()
 
     override val root = vbox {
         setPrefSize(1000.0, 400.0)
@@ -22,7 +22,7 @@ class RestaurantInfoScreen() : View("Restaurant Information") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    FreedomFoodUIController.loadSearchScreenFromInfo()
+                    freedomFoodUIController.loadSearchScreenFromInfo()
                 }
             }
         }
@@ -30,7 +30,7 @@ class RestaurantInfoScreen() : View("Restaurant Information") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    FreedomFoodUIController.closeRestaurantInfo()
+                    freedomFoodUIController.closeRestaurantInfo()
                 }
             }
         }

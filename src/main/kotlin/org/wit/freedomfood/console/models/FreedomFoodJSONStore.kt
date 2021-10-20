@@ -11,8 +11,8 @@ import java.util.*
 private val logger = KotlinLogging.logger {}
 
 const val JSON_FILE = "freedomfoods.json"
-val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<ArrayList<FreedomFoodModel>>() {}.type
+val gsonBuilder = GsonBuilder().setPrettyPrinting().create()!!
+val listType = object : TypeToken<ArrayList<FreedomFoodModel>>() {}.type!!
 
 fun generateRandomId(): Long {
     return Random().nextLong()
@@ -33,9 +33,7 @@ class FreedomFoodJSONStore : FreedomFoodStore {
     }
 
     override fun findOne(id: Long): FreedomFoodModel? {
-        val hello = freedomfoods.find { p -> p.id == id }
-       //print(hello)
-        return hello
+        return freedomfoods.find { p -> p.id == id }
     }
 
     override fun create(freedomfood: FreedomFoodModel) {

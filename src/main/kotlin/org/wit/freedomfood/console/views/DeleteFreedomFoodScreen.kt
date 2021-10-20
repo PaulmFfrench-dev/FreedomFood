@@ -4,8 +4,8 @@ import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
 
 class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
-    val FreedomFoodUIController: FreedomFoodUIController by inject()
-    val tableContent = FreedomFoodUIController.showdata()
+    val freedomFoodUIController: FreedomFoodUIController by inject()
+    private val tableContent = freedomFoodUIController.showdata()
 
     override val root = vbox {
         setPrefSize(1000.0, 400.0)
@@ -22,8 +22,8 @@ class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    FreedomFoodUIController.delete(tableContent)
-                    FreedomFoodUIController.closeDelete()
+                    freedomFoodUIController.delete(tableContent)
+                    freedomFoodUIController.closeDelete()
                 }
             }
         }
@@ -31,7 +31,7 @@ class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    FreedomFoodUIController.loadDeleteSearchScreenFromDelete()
+                    freedomFoodUIController.loadDeleteSearchScreenFromDelete()
                 }
             }
         }
@@ -39,7 +39,7 @@ class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    FreedomFoodUIController.closeDelete()
+                    freedomFoodUIController.closeDelete()
                 }
             }
         }

@@ -3,16 +3,13 @@ package org.wit.freedomfood.console.models
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import mu.KotlinLogging
 
 import org.wit.freedomfood.console.helpers.*
 import java.util.*
 
-private val logger = KotlinLogging.logger {}
-
 const val JSONData_FILE = "freedomfoodsearchdata.json"
-val DatagsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val DatalistType = object : TypeToken<ArrayList<FreedomFoodSearchDataModel>>() {}.type
+val DatagsonBuilder = GsonBuilder().setPrettyPrinting().create()!!
+val DatalistType = object : TypeToken<ArrayList<FreedomFoodSearchDataModel>>() {}.type!!
 
 class FreedomFoodSearchDataJSONStore : FreedomFoodSearchDataStore {
 
@@ -24,7 +21,7 @@ class FreedomFoodSearchDataJSONStore : FreedomFoodSearchDataStore {
         }
     }
 
-    override fun findLatest(): FreedomFoodSearchDataModel? {
+    override fun findLatest(): FreedomFoodSearchDataModel {
         return freedomfoods.last()
     }
 

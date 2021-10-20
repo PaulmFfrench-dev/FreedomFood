@@ -4,6 +4,7 @@ import javafx.application.Platform
 import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import tornadofx.*
+import kotlin.system.exitProcess
 
 class MenuScreen : View("FreedomFood Main Menu") {
 
@@ -74,8 +75,8 @@ class MenuScreen : View("FreedomFood Main Menu") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        Platform.exit();
-                        System.exit(0);
+                        Platform.exit()
+                        exitProcess(0)
                     }
                 }
             }
