@@ -15,7 +15,7 @@ val gsonBuilder = GsonBuilder().setPrettyPrinting().create()!!
 val listType = object : TypeToken<ArrayList<FreedomFoodModel>>() {}.type!!
 
 fun generateRandomId(): Long {
-    return Random().nextLong()
+    return Math.abs(Random().nextLong())
 }
 
 class FreedomFoodJSONStore : FreedomFoodStore {

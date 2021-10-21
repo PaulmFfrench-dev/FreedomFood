@@ -1,17 +1,15 @@
 package org.wit.freedomfood.console.controllers
 
 import mu.KotlinLogging
-import org.wit.freedomfood.console.models.FreedomFoodJSONStore
-import org.wit.freedomfood.console.models.FreedomFoodModel
-import org.wit.freedomfood.console.models.FreedomFoodSearchDataJSONStore
-import org.wit.freedomfood.console.models.FreedomFoodSearchDataModel
+import org.wit.freedomfood.console.models.*
 import org.wit.freedomfood.console.views.*
 import tornadofx.*
 
 class FreedomFoodUIController : Controller() {
     val freedomfoodmodel = FreedomFoodModel()
     val freedomfoods = FreedomFoodJSONStore()
-    private val freedomfoodsearchdata = FreedomFoodSearchDataJSONStore()
+    private val freedomfoodsearchdata = FreedomFoodSearchDataMemStore()
+    private val freedomfoodsearchdatajson = FreedomFoodSearchDataJSONStore()
     private val logger = KotlinLogging.logger {}
 
     init {
@@ -23,14 +21,19 @@ class FreedomFoodUIController : Controller() {
         logger.info("Restaurant Added")
     }
 
-    fun addSearchData(_id : Long){
-        val afreedomfood = FreedomFoodSearchDataModel(id = _id)
-        freedomfoodsearchdata.create(afreedomfood)
-        logger.info("Search Data Added")
+    fun addSearchData(_id : String){
+        try {
+            var convertedId = _id.toLong()
+            val afreedomfood = FreedomFoodSearchDataModel(id = convertedId)
+            freedomfoodsearchdatajson.create(afreedomfood)
+        }
+        catch (e: NumberFormatException) {
+            logger.error { "This is not a valid id" }
+        }
     }
 
     fun showdata(): FreedomFoodModel? {
-        val latestId = freedomfoodsearchdata.findLatest()
+        val latestId = freedomfoodsearchdatajson.findLatest()
         val newid = latestId.id
         return search(newid)
     }
@@ -55,15 +58,21 @@ class FreedomFoodUIController : Controller() {
         return freedomfoods.findOne(id)
     }
 
-    fun doesSearchExist(id: Long): Boolean {
-        if(freedomfoods.findOne(id) != null) {
-            return true
+    fun doesSearchExist(id: String): Boolean {
+        try {
+            var convertediId = id.toLong()
+            if (freedomfoods.findOne(convertediId) != null) {
+                return true
+            }
         }
-        return false
+        catch (e: NumberFormatException) {
+            logger.error { "This is not a valid id" }
+        }
+            return false
     }
 
     fun doesNotExist() {
-        print("This ID does not exist")
+        logger.error { "This id does not exist" }
     }
 
     fun loadAddScreen() {

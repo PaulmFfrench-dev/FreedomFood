@@ -5,9 +5,8 @@ import tornadofx.*
 
 class RestaurantInfoScreen : View("Restaurant Information") {
     val freedomFoodUIController: FreedomFoodUIController by inject()
-    private val tableContent = freedomFoodUIController.showdata()
-
-    override val root = vbox {
+    var tableContent = freedomFoodUIController.showdata()
+    override var root = vbox {
         setPrefSize(1000.0, 400.0)
         setPrefSize(600.0, 200.0)
 //        tableview(data) {
@@ -33,6 +32,11 @@ class RestaurantInfoScreen : View("Restaurant Information") {
                     freedomFoodUIController.closeRestaurantInfo()
                 }
             }
+        }
+    }
+    override fun onDock() {
+        currentWindow?.setOnCloseRequest {
+            println("Closing")
         }
     }
 }
