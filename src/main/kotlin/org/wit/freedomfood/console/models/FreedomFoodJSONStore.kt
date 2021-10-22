@@ -15,6 +15,9 @@ const val JSON_FILE = "freedomfoods.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()!!
 val listType = object : TypeToken<ArrayList<FreedomFoodModel>>() {}.type!!
 
+/**
+ * Generates a random absolute number of type long
+ */
 fun generateRandomId(): Long {
     return abs(Random().nextLong())
 }
@@ -29,18 +32,30 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         }
     }
 
+    /**
+     * Returns all list<FreedomFoodModel>
+     */
     override fun findAll(): List<FreedomFoodModel> {
         return freedomfoods
     }
 
+    /**
+     * Returns a single list<FreedomFoodModel>
+     */
     override fun findOne(id: Long): List<FreedomFoodModel> {
         return listOf(freedomfoods.find { p -> p.id == id }!!)
     }
 
+    /**
+     * Returns a single FreedomFoodModel
+     */
     override fun toEdit(id: Long): FreedomFoodModel? {
         return freedomfoods.find { p -> p.id == id }
     }
 
+    /**
+     * Writes a FreedomFoodModel to the freedomfoods.json file
+     */
     override fun create(freedomfood: FreedomFoodModel) {
         freedomfood.id = generateRandomId()
         freedomfood.restaurantname = freedomfood.restaurantname
@@ -52,6 +67,9 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         serialize()
     }
 
+    /**
+     * Writes an updated FreedomFoodModel to the freedomfoods.json file
+     */
     override fun update(freedomfood: FreedomFoodModel) {
         val foundRestaurant = toEdit(freedomfood.id)
         print(foundRestaurant)
@@ -65,20 +83,32 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         serialize()
     }
 
+    /**
+     * Writes a FreedomFoodModel to the freedomfoods.json file for deletion
+     */
     override fun delete(freedomfood: FreedomFoodModel) {
         freedomfoods.remove(freedomfood)
         serialize()
     }
 
+    /**
+     * Displays all current FreedomFoodModels in the terminal
+     */
     internal fun logAll() {
         freedomfoods.forEach { logger.info("$it") }
     }
 
+    /**
+     * Writes to the freedomfoods.json file
+     */
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(freedomfoods, listType)
         write(JSON_FILE, jsonString)
     }
 
+    /**
+     * Reads from the freedomfoods.json file
+     */
     private fun deserialize() {
         val jsonString = read(JSON_FILE)
         freedomfoods = Gson().fromJson(jsonString, listType)

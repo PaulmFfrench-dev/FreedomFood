@@ -11,11 +11,17 @@ class FreedomFoodController {
     private val freedomfoodView = FreedomFoodView()
     private val logger = KotlinLogging.logger {}
 
+    /**
+     * Displays the following strings on app start
+     */
     init {
         logger.info { "Launching FreedomFood Console App" }
         println("FreedomFood Kotlin App Version 5.0")
     }
 
+    /**
+     * A looping menu on start and ends only on exit
+     */
     fun start() {
         var input: Int
 
@@ -36,8 +42,14 @@ class FreedomFoodController {
         logger.info { "Shutting Down FreedomFood Console App" }
     }
 
+    /**
+     * Returns the menu from freedomfoodview
+     */
     private fun menu() :Int { return freedomfoodView.menu() }
 
+    /**
+     * Writes a FreedomFoodModel to the freedomfoods.json file
+     */
     private fun add(){
         val afreedomfood = FreedomFoodModel()
 
@@ -47,10 +59,16 @@ class FreedomFoodController {
             logger.info("Restaurant Not Added")
     }
 
+    /**
+     * Reads all restaurants from the freedomfoods.json file
+     */
     private fun list() {
         freedomfoodView.listRestaurants(freedomfoods)
     }
 
+    /**
+     * Writes an updated FreedomFoodModel to the freedomfoods.json file
+     */
     private fun update() {
         freedomfoodView.listRestaurants(freedomfoods)
         val searchId = freedomfoodView.getId()
@@ -69,15 +87,24 @@ class FreedomFoodController {
             println("Restaurant Not Updated...")
     }
 
+    /**
+     * Displays the data of a single restaurant from the FreedomFoodModel
+     */
     private fun search() {
         val afreedomfood = search(freedomfoodView.getId())!!
         freedomfoodView.showRestaurant(afreedomfood)
     }
 
+    /**
+     * Returns a single restaurant from the FreedomFoodModel
+     */
     private fun search(id: Long): FreedomFoodModel? {
         return freedomfoods.toEdit(id)
     }
 
+    /**
+     * Writes to freedomfoods.json file for the deletion of a freedomfoodmodel
+     */
     private fun delete() {
         freedomfoodView.listRestaurants(freedomfoods)
         val searchId = freedomfoodView.getId()
@@ -92,9 +119,12 @@ class FreedomFoodController {
             println("Restaurant Not Deleted...")
     }
 
+    /**
+     * Writes three FreeFoodModels to the freedomfoods.json
+     */
     private fun dummyData() {
-        freedomfoods.create(FreedomFoodModel(restaurantname = "New York New York", restaurantdescription = "So Good They Named It Twice"))
-        freedomfoods.create(FreedomFoodModel(restaurantname= "Ring of Kerry", restaurantdescription = "Some place in the Kingdom"))
-        freedomfoods.create(FreedomFoodModel(restaurantname = "Waterford City", restaurantdescription = "You get great Blaas Here!!"))
+        freedomfoods.create(FreedomFoodModel(restaurantname = "Four Star", restaurantdescription = "Excellent Pizzas!", rating = 4, meal = "Vegan Pizza", allergenFree = "No"))
+        freedomfoods.create(FreedomFoodModel(restaurantname= "Ephesus", restaurantdescription = "A small but excellent chipper", rating = 5, meal = "Kebab", allergenFree = "Yes"))
+        freedomfoods.create(FreedomFoodModel(restaurantname = "Penguin", restaurantdescription = "A fine Chipper!", rating = 4, meal = "Burger", allergenFree = "Yes"))
     }
 }

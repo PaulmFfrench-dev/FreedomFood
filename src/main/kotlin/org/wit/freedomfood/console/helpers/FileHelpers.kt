@@ -5,6 +5,9 @@ import java.io.*
 
 val logger = KotlinLogging.logger {}
 
+/**
+ * Writes data to a specified json file
+ */
 fun write( fileName: String, data: String) {
 
     val file = File(fileName)
@@ -17,6 +20,9 @@ fun write( fileName: String, data: String) {
     }
 }
 
+/**
+ * Reads data from a specified json file
+ */
 fun read(fileName: String): String {
     val file = File(fileName)
     var str = ""

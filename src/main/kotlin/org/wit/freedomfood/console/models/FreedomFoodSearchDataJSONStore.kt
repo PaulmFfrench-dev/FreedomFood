@@ -21,21 +21,33 @@ class FreedomFoodSearchDataJSONStore : FreedomFoodSearchDataStore {
         }
     }
 
+    /**
+     * Returns the last record from the FreedomFoodSearchDataModel
+     */
     override fun findLatest(): FreedomFoodSearchDataModel {
         return freedomfoods.last()
     }
 
+    /**
+     * Writes a FreedomFoodSearchDataModel to the freedomfoodsearchdata.json
+     */
     override fun create(freedomfood: FreedomFoodSearchDataModel) {
         freedomfood.id = freedomfood.id
         freedomfoods.add(freedomfood)
         serialize()
     }
 
+    /**
+     * Writes to the JSON file
+     */
     private fun serialize() {
         val jsonString = DatagsonBuilder.toJson(freedomfoods, DatalistType)
         write(JSONData_FILE, jsonString)
     }
 
+    /**
+     * Reads from the JSON file
+     */
     private fun deserialize() {
         val jsonString = read(JSONData_FILE)
         freedomfoods = Gson().fromJson(jsonString, DatalistType)
