@@ -6,7 +6,7 @@ import tornadofx.*
 
 class RestaurantInfoScreen : View("Restaurant Information") {
     val freedomFoodUIController: FreedomFoodUIController by inject()
-    var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata())
+    private var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata())
     private val data = tableContent.observable()
 
     override var root = vbox {

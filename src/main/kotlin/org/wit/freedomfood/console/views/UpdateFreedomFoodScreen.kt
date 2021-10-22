@@ -16,8 +16,8 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     private val _allergenfree = model.bind { SimpleStringProperty() }
 
     val freedomFoodUIController: FreedomFoodUIController by inject()
-    var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata()!!)
-    var toEdit = freedomFoodUIController.freedomfoods.toEdit(freedomFoodUIController.showdata()!!)
+    private var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata())
+    private var toEdit = freedomFoodUIController.freedomfoods.toEdit(freedomFoodUIController.showdata())
     private val data = tableContent.observable()
 
     override var root = form {
@@ -52,14 +52,14 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        if(_rating.value > 5 && _rating.value <= 0 ) {
+                        if(_rating.value > 5 || _rating.value < 1 ) {
                             println("Please enter a number between 1 and 5")
                         }
                         if(_allergenfree.value != "no" || _allergenfree.value != "No" ||
                             _allergenfree.value != "yes" || _allergenfree.value != "Yes"){
                             println("Please enter yes or no for if the meal is allergen free")
                         }
-                        if(_rating.value < 5 && _rating.value > 0 &&
+                        if(_rating.value in 1..4 &&
                             _allergenfree.value.toString() == "no" || _allergenfree.value.toString() == "No" ||
                             _allergenfree.value.toString() == "yes" || _allergenfree.value.toString() == "Yes") {
                             freedomFoodUIController.update(

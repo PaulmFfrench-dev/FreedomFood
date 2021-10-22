@@ -10,12 +10,13 @@ class FreedomFoodUIController : Controller() {
     val freedomfoodmodel = FreedomFoodModel()
     val freedomfoods = FreedomFoodJSONStore()
     private val freedomfoodsearchdata = FreedomFoodSearchDataMemStore()
-    private val freedomfoodsearchdatajson = FreedomFoodSearchDataJSONStore()
+//    private val freedomfoodsearchdatajson = FreedomFoodSearchDataJSONStore()
     private val logger = KotlinLogging.logger {}
 
     init {
         logger.info { "Launching FreedomFood TornadoFX UI App" }
     }
+
     fun add(_restaurantname : String, _restaurantdescription : String, _rating : Int, _meal: String, _allergenfree: String){
         val afreedomfood = FreedomFoodModel(restaurantname = _restaurantname,
                                             restaurantdescription = _restaurantdescription,
@@ -28,7 +29,7 @@ class FreedomFoodUIController : Controller() {
 
     fun addSearchData(_id : String){
         try {
-            var convertedId = _id.toLong()
+            val convertedId = _id.toLong()
             val afreedomfood = FreedomFoodSearchDataModel(id = convertedId)
             freedomfoodsearchdata.create(afreedomfood)
             logger.info("\nSearch Data Added : [ $afreedomfood ]")
@@ -45,7 +46,7 @@ class FreedomFoodUIController : Controller() {
 
     fun update(_restaurantname : String, _restaurantdescription : String, _rating: Int, _meal: String, _allergenfree: String){
         val latestData = showdata()
-        val afreedomfood = FreedomFoodModel(id = latestData!!,
+        val afreedomfood = FreedomFoodModel(id = latestData,
                                             restaurantname = _restaurantname,
                                             restaurantdescription = _restaurantdescription,
                                             rating = _rating,
@@ -64,14 +65,14 @@ class FreedomFoodUIController : Controller() {
             logger.info("Restaurant Not Deleted...")
     }
 
-    private fun search(id: Long): FreedomFoodModel? {
-        return freedomfoods.toEdit(id)
-    }
+//    private fun search(id: Long): FreedomFoodModel? {
+//        return freedomfoods.toEdit(id)
+//    }
 
     fun doesSearchExist(id: String): Boolean {
         try {
-            var convertediId = id.toLong()
-            if (freedomfoods.findOne(convertediId) != null) {
+            val convertediId = id.toLong()
+            if (freedomfoods.findOne(convertediId).toString().toBoolean()) {
                 return true
             }
         }

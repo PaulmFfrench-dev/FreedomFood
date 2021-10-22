@@ -7,6 +7,7 @@ import mu.KotlinLogging
 
 import org.wit.freedomfood.console.helpers.*
 import java.util.*
+import kotlin.math.abs
 
 private val logger = KotlinLogging.logger {}
 
@@ -15,7 +16,7 @@ val gsonBuilder = GsonBuilder().setPrettyPrinting().create()!!
 val listType = object : TypeToken<ArrayList<FreedomFoodModel>>() {}.type!!
 
 fun generateRandomId(): Long {
-    return Math.abs(Random().nextLong())
+    return abs(Random().nextLong())
 }
 
 class FreedomFoodJSONStore : FreedomFoodStore {

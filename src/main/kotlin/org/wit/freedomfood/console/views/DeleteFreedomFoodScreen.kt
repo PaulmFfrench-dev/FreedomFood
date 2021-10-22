@@ -6,8 +6,8 @@ import tornadofx.*
 
 class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
     val freedomFoodUIController: FreedomFoodUIController by inject()
-    var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata()!!)
-    var toDelete = freedomFoodUIController.freedomfoods.toEdit(freedomFoodUIController.showdata()!!)
+    private var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata())
+    private var toDelete = freedomFoodUIController.freedomfoods.toEdit(freedomFoodUIController.showdata())
     private val data = tableContent.observable()
 
     override var root = vbox {

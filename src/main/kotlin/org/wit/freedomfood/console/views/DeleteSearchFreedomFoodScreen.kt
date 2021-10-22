@@ -2,11 +2,9 @@ package org.wit.freedomfood.console.views
 
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
-import javafx.scene.control.TableCell
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
 import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
-import javax.swing.table.TableColumn
 
 class DeleteSearchFreedomFoodScreen : View("Search for a Restaurant to Delete") {
     private val model = ViewModel()

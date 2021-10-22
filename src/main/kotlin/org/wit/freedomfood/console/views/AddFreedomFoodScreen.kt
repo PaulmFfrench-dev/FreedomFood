@@ -46,7 +46,7 @@ class AddFreedomFoodScreen : View("Add a Restaurant") {
                             _allergenfree.value.toString() != "yes" || _allergenfree.value.toString() != "Yes"){
                             println("Please enter yes or no for if the meal is allergen free")
                         }
-                        if(_rating.value < 5 && _rating.value > 0 &&
+                        if(_rating.value in 1..4 &&
                             _allergenfree.value.toString() == "no" || _allergenfree.value.toString() == "No" ||
                             _allergenfree.value.toString() == "yes" || _allergenfree.value.toString() == "Yes") {
                                 freedomfoodUIController.add(
