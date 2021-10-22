@@ -20,11 +20,44 @@ class ListFreedomFoodScreen : View("List Restaurants") {
                 readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
                 column("Action", FreedomFoodModel::id).cellFormat {
                     graphic = hbox(spacing = 5) {
-                        button("View").action { freedomFoodUIController.loadViewScreenfromList() }
-                        button("Edit").action { freedomFoodUIController.loadUpdateScreenfromList() }
-                        button("Delete").action { freedomFoodUIController.loadDeleteScreenfromList() }
+                        button("View") {
+                            useMaxWidth = true
+                            style = "-fx-background-color: skyblue"
+                            action {
+                                runAsyncWithProgress {
+                                    freedomFoodUIController.loadViewScreenfromList()
+                                }
+                            }
+                        }
+                        button("Edit") {
+                            useMaxWidth = true
+                            style = "-fx-background-color: yellow"
+                            action {
+                                runAsyncWithProgress {
+                                    freedomFoodUIController.loadUpdateScreenfromList()
+                                }
+                            }
+                        }
+                        button("Delete") {
+                            useMaxWidth = true
+                            style = "-fx-background-color: red"
+                            action {
+                                runAsyncWithProgress {
+                                    freedomFoodUIController.loadDeleteScreenfromList()
+                                }
+                            }
+                        }
                     }
                 }
+        }
+        button("Add a Restaurant") {
+            useMaxWidth = true
+            style = "-fx-background-color: lightgreen"
+            action {
+                runAsyncWithProgress {
+                    freedomFoodUIController.loadaddFromList()
+                }
+            }
         }
         button("Return to Main Menu") {
             useMaxWidth = true

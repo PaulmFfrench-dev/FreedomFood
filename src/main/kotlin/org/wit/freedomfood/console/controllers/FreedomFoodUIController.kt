@@ -87,6 +87,11 @@ class FreedomFoodUIController : Controller() {
     fun doesNotExist() {
         logger.error { "This id does not exist" }
     }
+    fun loadaddFromList() {
+        runLater {
+            find(ListFreedomFoodScreen::class).replaceWith(AddFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
     fun loadViewScreenfromList() {
         runLater {
             find(ListFreedomFoodScreen::class).replaceWith(SearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
