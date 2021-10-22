@@ -55,8 +55,8 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                         if(_rating.value > 5 || _rating.value < 1 ) {
                             println("Please enter a number between 1 and 5")
                         }
-                        if(_allergenfree.value != "no" || _allergenfree.value != "No" ||
-                            _allergenfree.value != "yes" || _allergenfree.value != "Yes"){
+                        if(_allergenfree.value != "no" && _allergenfree.value != "No" &&
+                            _allergenfree.value != "yes" && _allergenfree.value != "Yes"){
                             println("Please enter yes or no for if the meal is allergen free")
                         }
                         if(_rating.value in 1..4 &&
