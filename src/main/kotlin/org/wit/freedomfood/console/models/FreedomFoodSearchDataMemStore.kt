@@ -10,6 +10,7 @@ class FreedomFoodSearchDataMemStore : FreedomFoodSearchDataStore {
 
     override fun findLatest(): FreedomFoodSearchDataModel {
         return freedomfoods.last()
+        logAll()
     }
 
     override fun create(freedomfood: FreedomFoodSearchDataModel) {

@@ -28,11 +28,15 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         }
     }
 
-    override fun findAll(): MutableList<FreedomFoodModel> {
+    override fun findAll(): List<FreedomFoodModel> {
         return freedomfoods
     }
 
-    override fun findOne(id: Long): FreedomFoodModel? {
+    override fun findOne(id: Long): List<FreedomFoodModel> {
+        return listOf(freedomfoods.find { p -> p.id == id }!!)
+    }
+
+    override fun toEdit(id: Long): FreedomFoodModel? {
         return freedomfoods.find { p -> p.id == id }
     }
 
@@ -40,16 +44,18 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         freedomfood.id = generateRandomId()
         freedomfood.restaurantname = freedomfood.restaurantname
         freedomfood.restaurantdescription = freedomfood.restaurantdescription
+        freedomfood.rating = freedomfood.rating
         freedomfoods.add(freedomfood)
         serialize()
     }
 
     override fun update(freedomfood: FreedomFoodModel) {
-        val foundRestaurant = findOne(freedomfood.id)
+        val foundRestaurant = toEdit(freedomfood.id)
         print(foundRestaurant)
         if (foundRestaurant != null) {
             foundRestaurant.restaurantname = freedomfood.restaurantname
             foundRestaurant.restaurantdescription = freedomfood.restaurantdescription
+            foundRestaurant.rating = freedomfood.rating
         }
         serialize()
     }

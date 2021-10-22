@@ -1,28 +1,28 @@
 package org.wit.freedomfood.console.views
 
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
+import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
 
 class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
     val freedomFoodUIController: FreedomFoodUIController by inject()
-    private val tableContent = freedomFoodUIController.showdata()
+    var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata()!!)
+    var toDelete = freedomFoodUIController.freedomfoods.toEdit(freedomFoodUIController.showdata()!!)
+    private val data = tableContent.observable()
 
-    override val root = vbox {
-        setPrefSize(1000.0, 400.0)
-        setPrefSize(600.0, 200.0)
-//        tableview(data) {
-//            readonlyColumn("Id", FreedomFoodModel::id)
-//            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
-//            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
-//        }
-        text(tableContent?.id.toString())
-        text(tableContent?.restaurantname.toString())
-        text(tableContent?.restaurantdescription.toString())
+    override var root = vbox {
+        setPrefSize(600.0, 600.0)
+        tableview(data) {
+            readonlyColumn("Id",  FreedomFoodModel::id)
+            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
+            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+            readonlyColumn("Rating", FreedomFoodModel::rating)
+        }
         button("Delete") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    freedomFoodUIController.delete(tableContent)
+                    freedomFoodUIController.delete(toDelete)
                     freedomFoodUIController.closeDelete()
                 }
             }

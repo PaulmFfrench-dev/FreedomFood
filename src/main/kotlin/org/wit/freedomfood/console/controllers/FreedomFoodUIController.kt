@@ -4,6 +4,7 @@ import mu.KotlinLogging
 import org.wit.freedomfood.console.models.*
 import org.wit.freedomfood.console.views.*
 import tornadofx.*
+import java.lang.NullPointerException
 
 class FreedomFoodUIController : Controller() {
     val freedomfoodmodel = FreedomFoodModel()
@@ -15,8 +16,8 @@ class FreedomFoodUIController : Controller() {
     init {
         logger.info { "Launching FreedomFood TornadoFX UI App" }
     }
-    fun add(_restaurantname : String, _restaurantdescription : String){
-        val afreedomfood = FreedomFoodModel(restaurantname = _restaurantname, restaurantdescription = _restaurantdescription)
+    fun add(_restaurantname : String, _restaurantdescription : String, _rating : Int){
+        val afreedomfood = FreedomFoodModel(restaurantname = _restaurantname, restaurantdescription = _restaurantdescription, rating = _rating)
         freedomfoods.create(afreedomfood)
         logger.info("Restaurant Added")
     }
@@ -25,22 +26,22 @@ class FreedomFoodUIController : Controller() {
         try {
             var convertedId = _id.toLong()
             val afreedomfood = FreedomFoodSearchDataModel(id = convertedId)
-            freedomfoodsearchdatajson.create(afreedomfood)
+            freedomfoodsearchdata.create(afreedomfood)
+            logger.info("\nSearch Data Added : [ $afreedomfood ]")
         }
         catch (e: NumberFormatException) {
             logger.error { "This is not a valid id" }
         }
     }
 
-    fun showdata(): FreedomFoodModel? {
-        val latestId = freedomfoodsearchdatajson.findLatest()
-        val newid = latestId.id
-        return search(newid)
+    fun showdata(): Long {
+        val latestId = freedomfoodsearchdata.findLatest()
+        return latestId.id
     }
 
-    fun update(_restaurantname : String, _restaurantdescription : String){
+    fun update(_restaurantname : String, _restaurantdescription : String, _rating: Int){
         val latestData = showdata()
-        val afreedomfood = FreedomFoodModel(id = latestData?.id!!,restaurantname = _restaurantname, restaurantdescription = _restaurantdescription)
+        val afreedomfood = FreedomFoodModel(id = latestData!!,restaurantname = _restaurantname, restaurantdescription = _restaurantdescription, rating = _rating)
         freedomfoods.update(afreedomfood)
         logger.info("Restaurant Updated : [ $afreedomfood ]")
     }
@@ -55,7 +56,7 @@ class FreedomFoodUIController : Controller() {
     }
 
     private fun search(id: Long): FreedomFoodModel? {
-        return freedomfoods.findOne(id)
+        return freedomfoods.toEdit(id)
     }
 
     fun doesSearchExist(id: String): Boolean {
@@ -68,13 +69,30 @@ class FreedomFoodUIController : Controller() {
         catch (e: NumberFormatException) {
             logger.error { "This is not a valid id" }
         }
+        catch (e: NullPointerException) {
+            doesNotExist()
+        }
             return false
     }
 
     fun doesNotExist() {
         logger.error { "This id does not exist" }
     }
-
+    fun loadViewScreenfromList() {
+        runLater {
+            find(ListFreedomFoodScreen::class).replaceWith(SearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
+    fun loadUpdateScreenfromList() {
+        runLater {
+            find(ListFreedomFoodScreen::class).replaceWith(UpdateSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
+    fun loadDeleteScreenfromList() {
+        runLater {
+            find(ListFreedomFoodScreen::class).replaceWith(DeleteSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+        }
+    }
     fun loadAddScreen() {
         runLater {
             find(MenuScreen::class).replaceWith(AddFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)

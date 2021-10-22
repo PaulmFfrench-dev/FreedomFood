@@ -9,7 +9,7 @@ internal fun getId(): Long {
     return lastId++
 }
 
-class FreedomFoodMemStore : FreedomFoodStore {
+abstract class FreedomFoodMemStore : FreedomFoodStore {
 
     private val freedomfoods = ArrayList<FreedomFoodModel>()
 
@@ -17,7 +17,11 @@ class FreedomFoodMemStore : FreedomFoodStore {
         return freedomfoods
     }
 
-    override fun findOne(id: Long): FreedomFoodModel? {
+    override fun findOne(id: Long): List<FreedomFoodModel> {
+        return listOf(freedomfoods.find { p -> p.id == id }!!)
+    }
+
+    override fun toEdit(id: Long): FreedomFoodModel? {
         return freedomfoods.find { p -> p.id == id }
     }
 
@@ -28,7 +32,7 @@ class FreedomFoodMemStore : FreedomFoodStore {
     }
 
     override fun update(freedomfood: FreedomFoodModel) {
-        val foundFreedomFoods = findOne(freedomfood.id)
+        val foundFreedomFoods = toEdit(freedomfood.id)
         if (foundFreedomFoods != null) {
             foundFreedomFoods.restaurantname = freedomfood.restaurantname
             foundFreedomFoods.restaurantdescription = freedomfood.restaurantdescription

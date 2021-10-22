@@ -9,16 +9,17 @@ import tornadofx.*
 class UpdateSearchFreedomFoodScreen : View("Search for a Restaurant to Update") {
     private val model = ViewModel()
     private val _id = model.bind { SimpleStringProperty() }
-    val freedomfoodUIController: FreedomFoodUIController by inject()
-    private val tableContent = freedomfoodUIController.freedomfoods.findAll()
+    val freedomFoodUIController: FreedomFoodUIController by inject()
+    private val tableContent = freedomFoodUIController.freedomfoods.findAll()
     private val data = tableContent.observable()
 
     override val root = form {
-        setPrefSize(600.0, 200.0)
+        setPrefSize(600.0, 600.0)
         tableview(data) {
             readonlyColumn("Id", FreedomFoodModel::id)
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
             readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+            readonlyColumn("Rating", FreedomFoodModel::rating)
         }
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Search by ID") {
@@ -30,12 +31,12 @@ class UpdateSearchFreedomFoodScreen : View("Search for a Restaurant to Update") 
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        if (freedomfoodUIController.doesSearchExist(_id.value)) {
-                            freedomfoodUIController.addSearchData(_id.value)
-                            freedomfoodUIController.loadUpdateScreen()
+                        if (freedomFoodUIController.doesSearchExist(_id.value)) {
+                            freedomFoodUIController.addSearchData(_id.value)
+                            freedomFoodUIController.loadUpdateScreen()
                         }
                         else
-                            freedomfoodUIController.doesNotExist()
+                            freedomFoodUIController.doesNotExist()
                     }
                 }
             }
@@ -43,10 +44,14 @@ class UpdateSearchFreedomFoodScreen : View("Search for a Restaurant to Update") 
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.closeUpdateSearch()
+                        freedomFoodUIController.closeUpdateSearch()
                     }
                 }
             }
         }
+    }
+    override fun onDock() {
+        _id.value = ""
+        model.clearDecorators()
     }
 }

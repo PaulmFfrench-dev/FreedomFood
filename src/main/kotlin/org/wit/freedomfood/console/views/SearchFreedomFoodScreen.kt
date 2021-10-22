@@ -14,11 +14,12 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
     private val data = tableContent.observable()
 
     override var root = form {
-        setPrefSize(600.0, 200.0)
+        setPrefSize(600.0, 600.0)
         tableview(data) {
             readonlyColumn("Id", FreedomFoodModel::id)
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
             readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+            readonlyColumn("Rating", FreedomFoodModel::rating)
         }
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Search by ID") {
@@ -37,7 +38,6 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
                     }
                 }
             }
-            text("")
             button("Return to Main Menu") {
                 useMaxWidth = true
                 action {
@@ -46,7 +46,10 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
                     }
                 }
             }
-            text("")
         }
+    }
+    override fun onDock() {
+        _id.value = ""
+        model.clearDecorators()
     }
 }

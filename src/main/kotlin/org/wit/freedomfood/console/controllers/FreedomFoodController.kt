@@ -52,7 +52,6 @@ class FreedomFoodController {
     }
 
     private fun update() {
-
         freedomfoodView.listRestaurants(freedomfoods)
         val searchId = freedomfoodView.getId()
         val afreedomfood = search(searchId)
@@ -76,7 +75,7 @@ class FreedomFoodController {
     }
 
     private fun search(id: Long): FreedomFoodModel? {
-        return freedomfoods.findOne(id)
+        return freedomfoods.toEdit(id)
     }
 
     private fun delete() {

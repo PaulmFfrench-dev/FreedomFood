@@ -1,43 +1,57 @@
 package org.wit.freedomfood.console.views
 
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import org.wit.freedomfood.console.controllers.FreedomFoodUIController
+import org.wit.freedomfood.console.models.FreedomFoodModel
 import tornadofx.*
 
 class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     private val model = ViewModel()
     private val _restaurantname = model.bind { SimpleStringProperty() }
     private val _restaurantdescription = model.bind { SimpleStringProperty() }
-    val freedomfoodUIController: FreedomFoodUIController by inject()
-    private val tableContent = freedomfoodUIController.showdata()
+    private val _rating = model.bind { SimpleIntegerProperty() }
 
-    override val root = form {
-        setPrefSize(1000.0, 400.0)
-        setPrefSize(600.0, 200.0)
-//        tableview(data) {
-//            readonlyColumn("Id", FreedomFoodModel::id)
-//            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
-//            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
-//        }
-        text("Id: "+tableContent?.id.toString())
-        text("Name: "+tableContent?.restaurantname.toString())
-        text("Description: "+tableContent?.restaurantdescription.toString())
+    val freedomFoodUIController: FreedomFoodUIController by inject()
+    var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata()!!)
+    private val data = tableContent.observable()
+
+    override var root = form {
+        setPrefSize(600.0, 600.0)
+        tableview(data) {
+            readonlyColumn("Id",  FreedomFoodModel::id)
+            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
+            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+            readonlyColumn("Rating", FreedomFoodModel::rating)
+        }
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Restaurant Name") {
                textfield(_restaurantname).required()
             }
             field("Description") {
-                textarea(_restaurantdescription).required()
+                textfield(_restaurantdescription).required()
             }
+            field("Rating") {
+                textfield(_rating).required()
+            }
+
             button("Restaurant Update") {
                 enableWhen(model.valid)
                 isDefaultButton = true
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.update(_restaurantname.value.toString(),_restaurantdescription.value.toString())
-                        freedomfoodUIController.closeUpdate()
+                        if(_rating.value < 5 && _rating.value > 0 ) {
+                            freedomFoodUIController.update(
+                                _restaurantname.value,
+                                _restaurantdescription.value,
+                                _rating.value
+                            )
+                            freedomFoodUIController.closeUpdate()
+                        }
+                        else
+                            println("Please enter a number between 1 and 5")
                     }
                 }
             }
@@ -45,7 +59,7 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.loadUpdateSearchScreenFromInfo()
+                        freedomFoodUIController.loadUpdateSearchScreenFromInfo()
                     }
                 }
             }
@@ -53,7 +67,7 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        freedomfoodUIController.closeUpdate()
+                        freedomFoodUIController.closeUpdate()
                     }
                 }
             }
@@ -63,6 +77,7 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     override fun onDock() {
         _restaurantname.value = ""
         _restaurantdescription.value = ""
+        _rating.value = 0
         model.clearDecorators()
     }
 }
