@@ -89,7 +89,7 @@ class FreedomFoodUIController : Controller() {
     fun doesSearchExist(id: String): Boolean {
         try {
             val convertediId = id.toLong()
-            if (freedomfoods.findOne(convertediId).toString().toBoolean()) {
+            if (freedomfoods.toEdit(convertediId) != null) {
                 return true
             }
         }
