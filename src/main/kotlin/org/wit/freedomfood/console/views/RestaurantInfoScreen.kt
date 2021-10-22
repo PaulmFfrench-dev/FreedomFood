@@ -7,17 +7,18 @@ import tornadofx.*
 class RestaurantInfoScreen : View("Restaurant Information") {
     val freedomFoodUIController: FreedomFoodUIController by inject()
     var tableContent = freedomFoodUIController.freedomfoods.findOne(freedomFoodUIController.showdata())
-
     private val data = tableContent.observable()
 
     override var root = vbox {
         setPrefSize(600.0, 600.0)
          tableview(data) {
-             column("Id",  FreedomFoodModel::id)
-             column("Restaurant Name", FreedomFoodModel::restaurantname)
+             readonlyColumn("Id",  FreedomFoodModel::id)
              readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
-             column("Restaurant Description", FreedomFoodModel::restaurantdescription)
-             column("Rating", FreedomFoodModel::rating)
+             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
+             readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+             readonlyColumn("Rating", FreedomFoodModel::rating)
+             readonlyColumn("Meal", FreedomFoodModel::meal)
+             readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
          }
         button("Back") {
             useMaxWidth = true

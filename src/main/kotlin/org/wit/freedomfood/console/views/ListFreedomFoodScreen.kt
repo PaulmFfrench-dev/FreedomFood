@@ -10,12 +10,14 @@ class ListFreedomFoodScreen : View("List Restaurants") {
     private val data = tableContent.observable()
 
     override val root = vbox {
-        setPrefSize(820.0, 600.0)
+        setPrefSize(1000.0, 500.0)
         tableview(data) {
                 readonlyColumn("Id", FreedomFoodModel::id)
                 readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
                 readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
                 readonlyColumn("Rating", FreedomFoodModel::rating)
+                readonlyColumn("Meal", FreedomFoodModel::meal)
+                readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
                 column("Action", FreedomFoodModel::id).cellFormat {
                     graphic = hbox(spacing = 5) {
                         button("View").action { freedomFoodUIController.loadViewScreenfromList() }

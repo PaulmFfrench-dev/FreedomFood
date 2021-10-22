@@ -45,6 +45,8 @@ class FreedomFoodJSONStore : FreedomFoodStore {
         freedomfood.restaurantname = freedomfood.restaurantname
         freedomfood.restaurantdescription = freedomfood.restaurantdescription
         freedomfood.rating = freedomfood.rating
+        freedomfood.meal = freedomfood.meal
+        freedomfood.allergenFree = freedomfood.allergenFree
         freedomfoods.add(freedomfood)
         serialize()
     }
@@ -56,6 +58,8 @@ class FreedomFoodJSONStore : FreedomFoodStore {
             foundRestaurant.restaurantname = freedomfood.restaurantname
             foundRestaurant.restaurantdescription = freedomfood.restaurantdescription
             foundRestaurant.rating = freedomfood.rating
+            freedomfood.meal = freedomfood.meal
+            freedomfood.allergenFree = freedomfood.allergenFree
         }
         serialize()
     }

@@ -17,6 +17,8 @@ class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
             readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
             readonlyColumn("Rating", FreedomFoodModel::rating)
+            readonlyColumn("Meal", FreedomFoodModel::meal)
+            readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
         }
         button("Delete") {
             useMaxWidth = true

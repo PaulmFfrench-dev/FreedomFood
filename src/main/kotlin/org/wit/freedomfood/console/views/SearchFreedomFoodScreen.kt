@@ -20,6 +20,8 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
             readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
             readonlyColumn("Rating", FreedomFoodModel::rating)
+            readonlyColumn("Meal", FreedomFoodModel::meal)
+            readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
         }
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Search by ID") {
