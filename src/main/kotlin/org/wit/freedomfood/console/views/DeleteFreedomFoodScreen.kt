@@ -11,7 +11,7 @@ class DeleteFreedomFoodScreen : View("Delete a Restaurant") {
     private val data = tableContent.observable()
 
     override var root = vbox {
-        setPrefSize(600.0, 600.0)
+        setPrefSize(810.0, 500.0)
         tableview(data) {
             readonlyColumn("Id",  FreedomFoodModel::id)
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)

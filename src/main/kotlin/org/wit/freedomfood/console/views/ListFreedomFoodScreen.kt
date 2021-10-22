@@ -10,7 +10,7 @@ class ListFreedomFoodScreen : View("List Restaurants") {
     private val data = tableContent.observable()
 
     override val root = vbox {
-        setPrefSize(1000.0, 500.0)
+        setPrefSize(980.0, 400.0)
         tableview(data) {
                 readonlyColumn("Id", FreedomFoodModel::id)
                 readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)

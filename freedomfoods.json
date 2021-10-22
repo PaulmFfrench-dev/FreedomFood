@@ -126,5 +126,21 @@
     "rating": 4,
     "meal": "Mizza",
     "allergenFree": "No"
+  },
+  {
+    "id": 8258815622015381181,
+    "restaurantname": "www",
+    "restaurantdescription": "www",
+    "rating": 1,
+    "meal": "www",
+    "allergenFree": "yes"
+  },
+  {
+    "id": 454050783656588451,
+    "restaurantname": "aaaaa",
+    "restaurantdescription": "aaaaaa",
+    "rating": 1,
+    "meal": "aaaa",
+    "allergenFree": "no"
   }
 ]

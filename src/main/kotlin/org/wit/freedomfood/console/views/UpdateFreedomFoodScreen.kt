@@ -21,7 +21,7 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
     private val data = tableContent.observable()
 
     override var root = form {
-        setPrefSize(600.0, 600.0)
+        setPrefSize(810.0, 550.0)
         tableview(data) {
             readonlyColumn("Id",  FreedomFoodModel::id)
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
@@ -55,11 +55,13 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                         if(_rating.value > 5 && _rating.value <= 0 ) {
                             println("Please enter a number between 1 and 5")
                         }
-                        else if(_allergenfree.toString() != "no" || _allergenfree.toString() != "No" ||
-                            _allergenfree.toString() != "yes" || _allergenfree.toString() != "Yes"){
+                        if(_allergenfree.value != "no" || _allergenfree.value != "No" ||
+                            _allergenfree.value != "yes" || _allergenfree.value != "Yes"){
                             println("Please enter yes or no for if the meal is allergen free")
                         }
-                        else
+                        if(_rating.value < 5 && _rating.value > 0 &&
+                            _allergenfree.value.toString() == "no" || _allergenfree.value.toString() == "No" ||
+                            _allergenfree.value.toString() == "yes" || _allergenfree.value.toString() == "Yes") {
                             freedomFoodUIController.update(
                                 _restaurantname.value,
                                 _restaurantdescription.value,
@@ -67,6 +69,7 @@ class UpdateFreedomFoodScreen : View("Update the Restaurant information") {
                                 _meal.value,
                                 _allergenfree.value
                             )
+                        }
                             freedomFoodUIController.closeUpdate()
                     }
                 }

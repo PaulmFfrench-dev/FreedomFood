@@ -14,12 +14,14 @@ class UpdateSearchFreedomFoodScreen : View("Search for a Restaurant to Update") 
     private val data = tableContent.observable()
 
     override val root = form {
-        setPrefSize(600.0, 600.0)
+        setPrefSize(810.0, 500.0)
         tableview(data) {
             readonlyColumn("Id", FreedomFoodModel::id)
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
             readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
             readonlyColumn("Rating", FreedomFoodModel::rating)
+            readonlyColumn("Meal", FreedomFoodModel::meal)
+            readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
         }
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Search by ID") {

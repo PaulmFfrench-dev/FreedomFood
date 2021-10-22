@@ -11,7 +11,7 @@ class MenuScreen : View("FreedomFood Main Menu") {
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
-        setPrefSize(600.0, 400.0)
+        setPrefSize(400.0, 200.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
             text("")
             button("Add a Restaurant") {

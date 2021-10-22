@@ -16,7 +16,7 @@ class AddFreedomFoodScreen : View("Add a Restaurant") {
     val freedomfoodUIController: FreedomFoodUIController by inject()
 
     override val root = form {
-        setPrefSize(600.0, 600.0)
+        setPrefSize(600.0, 400.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
             field("Restuarant name") {
                 textfield(_restaurantname).required()

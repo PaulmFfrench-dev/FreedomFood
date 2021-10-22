@@ -14,7 +14,7 @@ class SearchFreedomFoodScreen : View("Search for a Restaurant to View") {
     private val data = tableContent.observable()
 
     override var root = form {
-        setPrefSize(600.0, 600.0)
+        setPrefSize(810.0, 500.0)
         tableview(data) {
             readonlyColumn("Id", FreedomFoodModel::id)
             readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
