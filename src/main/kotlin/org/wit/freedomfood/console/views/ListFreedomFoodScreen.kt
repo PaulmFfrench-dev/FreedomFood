@@ -12,43 +12,43 @@ class ListFreedomFoodScreen : View("List Restaurants") {
     override val root = vbox {
         setPrefSize(980.0, 400.0)
         tableview(data) {
-                readonlyColumn("Id", FreedomFoodModel::id)
-                readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
-                readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
-                readonlyColumn("Rating", FreedomFoodModel::rating)
-                readonlyColumn("Meal", FreedomFoodModel::meal)
-                readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
-                column("Action", FreedomFoodModel::id).cellFormat {
-                    graphic = hbox(spacing = 5) {
-                        button("View") {
-                            useMaxWidth = true
-                            style = "-fx-background-color: skyblue"
-                            action {
-                                runAsyncWithProgress {
-                                    freedomFoodUIController.loadViewScreenfromList()
-                                }
+            readonlyColumn("Id", FreedomFoodModel::id)
+            readonlyColumn("Restaurant Name", FreedomFoodModel::restaurantname)
+            readonlyColumn("Restaurant Description", FreedomFoodModel::restaurantdescription)
+            readonlyColumn("Rating", FreedomFoodModel::rating)
+            readonlyColumn("Meal", FreedomFoodModel::meal)
+            readonlyColumn("Allergen Free", FreedomFoodModel::allergenFree)
+            column("Action", FreedomFoodModel::id).cellFormat {
+                graphic = hbox(spacing = 5) {
+                    button("View") {
+                        useMaxWidth = true
+                        style = "-fx-background-color: skyblue"
+                        action {
+                            runAsyncWithProgress {
+                                freedomFoodUIController.loadViewScreenfromList()
                             }
                         }
-                        button("Edit") {
-                            useMaxWidth = true
-                            style = "-fx-background-color: yellow"
-                            action {
-                                runAsyncWithProgress {
-                                    freedomFoodUIController.loadUpdateScreenfromList()
-                                }
+                    }
+                    button("Edit") {
+                        useMaxWidth = true
+                        style = "-fx-background-color: yellow"
+                        action {
+                            runAsyncWithProgress {
+                                freedomFoodUIController.loadUpdateScreenfromList()
                             }
                         }
-                        button("Delete") {
-                            useMaxWidth = true
-                            style = "-fx-background-color: red"
-                            action {
-                                runAsyncWithProgress {
-                                    freedomFoodUIController.loadDeleteScreenfromList()
-                                }
+                    }
+                    button("Delete") {
+                        useMaxWidth = true
+                        style = "-fx-background-color: red"
+                        action {
+                            runAsyncWithProgress {
+                                freedomFoodUIController.loadDeleteScreenfromList()
                             }
                         }
                     }
                 }
+            }
         }
         button("Add a Restaurant") {
             useMaxWidth = true

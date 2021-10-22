@@ -159,7 +159,16 @@ class FreedomFoodUIController : Controller() {
      */
     fun loadListScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(ListFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            try {
+                find(MenuScreen::class).replaceWith(
+                    ListFreedomFoodScreen::class,
+                    sizeToScene = true,
+                    centerOnScreen = true
+                )
+            }
+            catch(e: NullPointerException){
+                print("There is no data to display")
+            }
         }
         freedomfoods.logAll()
     }
@@ -169,7 +178,16 @@ class FreedomFoodUIController : Controller() {
      */
     fun loadUpdateSearchScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(UpdateSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            try {
+                find(MenuScreen::class).replaceWith(
+                    UpdateSearchFreedomFoodScreen::class,
+                    sizeToScene = true,
+                    centerOnScreen = true
+                )
+            }
+            catch(e: NullPointerException){
+                print("There is no data to display")
+            }
         }
     }
 
@@ -196,7 +214,16 @@ class FreedomFoodUIController : Controller() {
      */
     fun loadDeleteSearchScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(DeleteSearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            try {
+                find(MenuScreen::class).replaceWith(
+                    DeleteSearchFreedomFoodScreen::class,
+                    sizeToScene = true,
+                    centerOnScreen = true
+                )
+            }
+            catch(e: NullPointerException){
+                print("There is no data to display")
+            }
         }
     }
 
@@ -223,7 +250,16 @@ class FreedomFoodUIController : Controller() {
      */
     fun loadSearchScreen() {
         runLater {
-            find(MenuScreen::class).replaceWith(SearchFreedomFoodScreen::class, sizeToScene = true, centerOnScreen = true)
+            try {
+                find(MenuScreen::class).replaceWith(
+                    SearchFreedomFoodScreen::class,
+                    sizeToScene = true,
+                    centerOnScreen = true
+                )
+            }
+            catch(e: NullPointerException){
+                print("There is no data to display")
+            }
         }
     }
 
